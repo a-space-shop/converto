@@ -1,2 +1,2 @@
-[phases.setup] 
-nixPkgs = ["libreoffice", "poppler_utils"] 
+[phases.setup]
+nixPkgs = ["libreoffice", "poppler_utils"]
