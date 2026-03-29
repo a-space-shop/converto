@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 # Temp directory for uploads/outputs
-UPLOAD_DIR = Path("C:/Users/abram/AppData/Local/Temp/converto")
+UPLOAD_DIR = Path("/tmp/converto")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 # ─── Auto-delete files older than 1 hour ─────────────────────────────────────
