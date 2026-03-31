@@ -267,7 +267,7 @@ async def compress_pdf(
         # Fallback: use PyPDF2 to re-write (basic compression)
         try:
             import PyPDF2
-            reader = PyPDF2.PdfReader(str(src_path))
+            reader = PyPDF2.PdfReader(str(src_path), strict=False)
             writer = PyPDF2.PdfWriter()
             for page in reader.pages:
                 page.compress_content_streams()
@@ -308,7 +308,7 @@ async def split_pdf(
         shutil.copyfileobj(file.file, f)
 
     try:
-        reader = PyPDF2.PdfReader(str(src_path))
+        reader = PyPDF2.PdfReader(str(src_path), strict=False)
         total_pages = len(reader.pages)
 
         def extract_pages(page_indices, out_path):
@@ -386,4 +386,5 @@ async def split_pdf(
 # Serve frontend (place index.html in ../frontend/)
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
