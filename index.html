@@ -67,7 +67,7 @@
     nav a { text-decoration: none !important; outline: none; }
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
       background: rgba(10,10,15,0.7);
       backdrop-filter: blur(16px);
@@ -518,15 +518,14 @@
 <div class="bg-blob blob3"></div>
 
 <!-- Navbar -->
-<nav>
-  <div class="logo">Converto</div>
-  <div style="display:flex;gap:40px;align-items:center;justify-content:center">
-    <a href="/" style="font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Convert PDF</a>
-    <a href="/merge.html" style="font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Merge PDF</a>
-    <a href="/compress.html" style="font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Compress PDF</a>
-    <a href="/split.html" style="font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Split PDF</a>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
+  <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Converto</div>
+  <div style="display:flex;gap:32px;align-items:center">
+    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Convert PDF</a>
+    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Merge PDF</a>
+    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Compress PDF</a>
+    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Split PDF</a>
   </div>
-  <div></div>
 </nav>
 
 <!-- Hero -->
@@ -808,6 +807,9 @@
 </script>
 </body>
 </html>
+
+
+
 
 
 
