@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" /><meta name="google-site-verification" content="XsTSjHM8hXSuyO9VL8rglzO543OVJk7V7ms3v7CEOHY" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Split PDF Free — Extract Pages Online — Converto</title>
-  <meta name="description" content="Split PDF files online for free. Extract pages, split by range, or separate every page. No sign-up. Files deleted after download.">
+  <title>Merge PDF Files Online Free — Combine PDFs Instantly | EditPDF</title>
+  <meta name="description" content="Merge multiple PDF files into one. Free online PDF merger. No sign-up required. Files deleted after download.">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,111 +21,102 @@
       pointer-events: none; z-index: 9999; opacity: 0.4;
     }
     .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.1; pointer-events: none; z-index: 0; }
-    .blob1 { width: 500px; height: 500px; background: var(--accent3); top: -150px; right: -100px; }
-    .blob2 { width: 400px; height: 400px; background: var(--accent); bottom: -100px; left: -80px; }
+    .blob1 { width: 500px; height: 500px; background: var(--accent); top: -150px; right: -100px; }
+    .blob2 { width: 400px; height: 400px; background: var(--accent3); bottom: -100px; left: -80px; }
 
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
       background: rgba(10,10,15,0.7); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-    nav a { text-decoration: none !important; }
     .logo {
       font-family: var(--font-display); font-size: 22px; font-weight: 800;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none;
     }
-    .nav-links { display: flex; gap: 40px; justify-content: center; }
-    .nav-links a {
-      font-size: 15px; font-weight: 500; text-decoration: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
 
-    .hero { position: relative; z-index: 1; padding: 140px 24px 60px; text-align: center; }
+    .hero {
+      position: relative; z-index: 1;
+      padding: 140px 24px 60px;
+      text-align: center;
+    }
     .eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent3); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s; }
     h1 { font-family: var(--font-display); font-size: clamp(36px, 6vw, 72px); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s; }
     h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .sub { font-size: 14px; color: var(--muted); max-width: 440px; margin: 0 auto 48px; line-height: 1.7; opacity: 0; animation: fadeUp 0.6s ease forwards 0.6s; }
 
+    /* Tool card */
     .tool-card {
-      position: relative; z-index: 1; max-width: 700px; margin: 0 auto;
+      position: relative; z-index: 1;
+      max-width: 700px; margin: 0 auto;
       background: var(--card); border: 1px solid var(--border);
       border-radius: 20px; padding: 40px;
       box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
       opacity: 0; animation: fadeUp 0.6s ease forwards 0.8s;
     }
 
+    /* Drop zone */
     .dropzone {
       border: 2px dashed var(--border); border-radius: 14px;
       padding: 40px 24px; text-align: center; cursor: pointer;
-      background: var(--surface); transition: all 0.25s ease; margin-bottom: 24px;
+      background: var(--surface); transition: all 0.25s ease;
+      margin-bottom: 24px;
     }
-    .dropzone:hover, .dropzone.drag-over { border-color: var(--accent3); box-shadow: 0 8px 32px rgba(106,247,200,0.15); }
+    .dropzone:hover, .dropzone.drag-over { border-color: var(--accent); box-shadow: 0 8px 32px rgba(124,106,247,0.2); }
     .drop-icon { font-size: 36px; margin-bottom: 12px; display: block; }
     .drop-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; margin-bottom: 6px; }
     .drop-hint { font-size: 12px; color: var(--muted); }
-    .drop-hint span { color: var(--accent3); cursor: pointer; text-decoration: underline; }
+    .drop-hint span { color: var(--accent); cursor: pointer; text-decoration: underline; }
     #file-input { display: none; }
 
-    .file-preview { display: none; align-items: center; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; }
-    .file-preview.visible { display: flex; }
-    .file-icon-box { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent3)); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .file-info { flex: 1; min-width: 0; }
-    .file-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .file-size { font-size: 11px; color: var(--muted); margin-top: 3px; }
-    .remove-btn { background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 4px; transition: color 0.2s; }
-    .remove-btn:hover { color: var(--accent2); }
-
-    /* Split method selector */
-    .method-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: block; }
-    .methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
-    .method-btn {
+    /* File list */
+    .file-list { margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .file-item {
+      display: flex; align-items: center; gap: 12px;
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 14px; cursor: pointer;
-      text-align: left; transition: all 0.2s; color: var(--text);
-      font-family: var(--font-mono);
+      border-radius: 10px; padding: 12px 16px;
+      animation: fadeUp 0.3s ease;
     }
-    .method-btn:hover { border-color: var(--accent3); }
-    .method-btn.active { border-color: var(--accent3); background: rgba(106,247,200,0.06); }
-    .method-btn .method-name { font-family: var(--font-display); font-size: 13px; font-weight: 700; margin-bottom: 3px; }
-    .method-btn .method-desc { font-size: 11px; color: var(--muted); }
-    .method-btn.active .method-desc { color: var(--accent3); }
+    .file-item-icon { font-size: 20px; flex-shrink: 0; }
+    .file-item-info { flex: 1; min-width: 0; }
+    .file-item-name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file-item-size { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .file-item-order { font-size: 11px; color: var(--accent); background: rgba(124,106,247,0.1); border-radius: 4px; padding: 2px 8px; flex-shrink: 0; }
+    .remove-file { background: none; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 4px; transition: color 0.2s; flex-shrink: 0; }
+    .remove-file:hover { color: var(--accent2); }
 
-    /* Input area */
-    .input-area { display: none; margin-bottom: 20px; }
-    .input-area.visible { display: block; }
-    .input-area label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
-    .input-area input {
-      width: 100%; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; color: var(--text); font-family: var(--font-mono);
-      font-size: 13px; padding: 12px 16px; outline: none; transition: border-color 0.2s;
-    }
-    .input-area input:focus { border-color: var(--accent3); }
-    .input-area .hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .file-count { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+    .file-count span { color: var(--accent3); font-weight: 600; }
 
-    .split-btn {
+    /* Merge button */
+    .merge-btn {
       width: 100%; padding: 16px;
       background: linear-gradient(135deg, var(--accent), var(--accent3));
-      border: none; border-radius: 12px; color: #fff;
-      font-family: var(--font-display); font-size: 16px; font-weight: 700;
+      border: none; border-radius: 12px;
+      color: #fff; font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
       cursor: pointer; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
     }
-    .split-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(124,106,247,0.4); }
-    .split-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .split-btn.loading .btn-text { display: none; }
-    .split-btn.loading .btn-spinner { display: block; }
+    .merge-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(124,106,247,0.4); }
+    .merge-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .merge-btn.loading .btn-text { display: none; }
+    .merge-btn.loading .btn-spinner { display: block; }
     .btn-spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto; }
 
+    /* Progress */
     .progress-wrap { display: none; margin-top: 16px; }
     .progress-wrap.visible { display: block; }
     .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
     .progress-bar { height: 4px; background: var(--border); border-radius: 100px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent3)); border-radius: 100px; width: 0%; transition: width 0.3s ease; }
 
+    /* Download */
     .download-area { display: none; margin-top: 20px; background: rgba(106,247,200,0.05); border: 1px solid rgba(106,247,200,0.2); border-radius: 12px; padding: 20px 24px; align-items: center; gap: 16px; }
     .download-area.visible { display: flex; }
     .download-text strong { font-family: var(--font-display); font-size: 14px; color: var(--accent3); display: block; margin-bottom: 2px; }
@@ -133,9 +124,11 @@
     .download-btn { background: var(--accent3); color: #0a0a0f; border: none; border-radius: 8px; padding: 10px 20px; font-family: var(--font-display); font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; white-space: nowrap; }
     .download-btn:hover { opacity: 0.85; transform: translateY(-1px); }
 
+    /* Error */
     .error-msg { display: none; margin-top: 16px; background: rgba(247,106,140,0.08); border: 1px solid rgba(247,106,140,0.25); border-radius: 10px; padding: 14px 18px; font-size: 13px; color: var(--accent2); }
     .error-msg.visible { display: block; }
 
+    /* Features */
     .features { position: relative; z-index: 1; max-width: 700px; margin: 80px auto; padding: 0 24px; }
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
     .feat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s, transform 0.2s; }
@@ -144,15 +137,24 @@
     .feat-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
     .feat-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
 
+    /* Other tools */
+    .other-tools { position: relative; z-index: 1; max-width: 700px; margin: 0 auto 80px; padding: 0 24px; text-align: center; }
+    .section-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .tools-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .tool-link { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 24px; text-decoration: none; color: var(--text); transition: all 0.2s; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+    .tool-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+
     footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); }
     footer a { color: var(--muted); text-decoration: none; }
     footer a:hover { color: var(--text); }
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes spin { to { transform: rotate(360deg); } }
+
     @media (max-width: 600px) {
-      nav { padding: 16px 20px; } .tool-card { padding: 24px; }
-      .methods { grid-template-columns: 1fr; }
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .tool-card { padding: 24px; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
@@ -164,83 +166,39 @@
 <nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 48px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
   <div></div>
   <div style="display:flex;gap:32px;align-items:center">
-    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Convert PDF</a>
-    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Merge PDF</a>
-    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Compress PDF</a>
-    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Split PDF</a>
+    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Convert PDF</a>
+    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Merge PDF</a>
+    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Compress PDF</a>
+    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Split PDF</a>
   </div>
 </nav>
 
 <section class="hero">
   <p class="eyebrow">✦ PDF Tool</p>
-  <h1>Split your PDF.<br><em>Your way.</em></h1>
-  <p class="sub">Extract pages, split by range, or separate every page. Free, private, no sign-up required.</p>
+  <h1>Merge PDFs<br><em>in seconds.</em></h1>
+  <p class="sub">Combine multiple PDF files into one. Drag, reorder, and merge — no sign-up, no watermarks, files deleted after download.</p>
 
   <div class="tool-card">
-
     <div class="dropzone" id="dropzone">
-      <span class="drop-icon">✂️</span>
-      <div class="drop-title">Drop your PDF here</div>
+      <span class="drop-icon">📎</span>
+      <div class="drop-title">Drop your PDF files here</div>
       <div class="drop-hint">or <span onclick="document.getElementById('file-input').click()">browse to upload</span></div>
     </div>
-    <input type="file" id="file-input" accept=".pdf" />
+    <input type="file" id="file-input" multiple accept=".pdf" />
 
-    <div class="file-preview" id="file-preview">
-      <div class="file-icon-box">📕</div>
-      <div class="file-info">
-        <div class="file-name" id="file-name">document.pdf</div>
-        <div class="file-size" id="file-size">2.4 MB</div>
-      </div>
-      <button class="remove-btn" id="remove-btn">✕</button>
+    <div class="file-count" id="file-count" style="display:none">
+      <span id="file-count-num">0</span> files selected — drag to reorder
     </div>
 
-    <span class="method-label">Split method</span>
-    <div class="methods">
-      <button class="method-btn active" data-method="range">
-        <div class="method-name">✂ Page range</div>
-        <div class="method-desc">e.g. pages 1-3, 5, 7-9</div>
-      </button>
-      <button class="method-btn" data-method="single">
-        <div class="method-name">📄 Single page</div>
-        <div class="method-desc">Extract one page</div>
-      </button>
-      <button class="method-btn" data-method="all">
-        <div class="method-name">📑 All pages</div>
-        <div class="method-desc">Split every page</div>
-      </button>
-      <button class="method-btn" data-method="every">
-        <div class="method-name">🔢 Every N pages</div>
-        <div class="method-desc">Split every 2, 3... pages</div>
-      </button>
-    </div>
+    <div class="file-list" id="file-list"></div>
 
-    <!-- Range input -->
-    <div class="input-area visible" id="input-range">
-      <label>Page ranges</label>
-      <input type="text" id="range-value" placeholder="e.g. 1-3, 5, 7-9" />
-      <div class="hint">Separate multiple ranges with commas</div>
-    </div>
-
-    <!-- Single page input -->
-    <div class="input-area" id="input-single">
-      <label>Page number</label>
-      <input type="number" id="single-value" placeholder="e.g. 3" min="1" />
-    </div>
-
-    <!-- Every N pages input -->
-    <div class="input-area" id="input-every">
-      <label>Split every N pages</label>
-      <input type="number" id="every-value" placeholder="e.g. 2" min="1" />
-      <div class="hint">e.g. enter 2 to split into chunks of 2 pages each</div>
-    </div>
-
-    <button class="split-btn" id="split-btn" disabled>
-      <span class="btn-text">Split PDF</span>
+    <button class="merge-btn" id="merge-btn" disabled>
+      <span class="btn-text">Merge PDFs</span>
       <span class="btn-spinner"></span>
     </button>
 
     <div class="progress-wrap" id="progress-wrap">
-      <div class="progress-label"><span id="progress-status">Splitting...</span><span id="progress-pct">0%</span></div>
+      <div class="progress-label"><span id="progress-status">Merging...</span><span id="progress-pct">0%</span></div>
       <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
 
@@ -248,20 +206,27 @@
 
     <div class="download-area" id="download-area">
       <div class="download-text">
-        <strong>✓ Split complete!</strong>
-        <small>Your split PDF is ready to download</small>
+        <strong>✓ Merge complete!</strong>
+        <small>Your merged PDF is ready</small>
       </div>
       <button class="download-btn" id="download-btn">Download</button>
     </div>
-
   </div>
 </section>
 
 <section class="features">
   <div class="features-grid">
-    <div class="feat"><div class="feat-icon">✂️</div><div class="feat-title">4 split modes</div><div class="feat-desc">Split by range, single page, every page, or every N pages.</div></div>
+    <div class="feat"><div class="feat-icon">🔀</div><div class="feat-title">Reorder pages</div><div class="feat-desc">Add files in any order — the merged PDF follows your sequence.</div></div>
     <div class="feat"><div class="feat-icon">🔒</div><div class="feat-title">Private</div><div class="feat-desc">Files are deleted automatically within 60 minutes of upload.</div></div>
-    <div class="feat"><div class="feat-icon">📦</div><div class="feat-title">ZIP download</div><div class="feat-desc">Multiple pages are packaged into a ZIP file for easy download.</div></div>
+    <div class="feat"><div class="feat-icon">⚡</div><div class="feat-title">Instant</div><div class="feat-desc">Merging happens server-side in seconds, no matter the file size.</div></div>
+  </div>
+</section>
+
+<section class="other-tools">
+  <p class="section-label">More tools</p>
+  <div class="tools-row">
+    <a href="/" class="tool-link">🔄 Convert Files</a>
+    <a href="/compress.html" class="tool-link">🗜️ Compress PDF</a>
   </div>
 </section>
 
@@ -273,11 +238,10 @@
 <script>
   const dropzone   = document.getElementById('dropzone');
   const fileInput  = document.getElementById('file-input');
-  const filePreview= document.getElementById('file-preview');
-  const fileNameEl = document.getElementById('file-name');
-  const fileSizeEl = document.getElementById('file-size');
-  const removeBtn  = document.getElementById('remove-btn');
-  const splitBtn   = document.getElementById('split-btn');
+  const fileList   = document.getElementById('file-list');
+  const fileCount  = document.getElementById('file-count');
+  const fileCountNum = document.getElementById('file-count-num');
+  const mergeBtn   = document.getElementById('merge-btn');
   const progressW  = document.getElementById('progress-wrap');
   const progressF  = document.getElementById('progress-fill');
   const progressS  = document.getElementById('progress-status');
@@ -286,8 +250,7 @@
   const downloadArea = document.getElementById('download-area');
   const downloadBtn  = document.getElementById('download-btn');
 
-  let selectedFile = null;
-  let selectedMethod = 'range';
+  let files = [];
   let downloadUrl = null;
 
   function formatBytes(b) {
@@ -296,74 +259,73 @@
     return (b/1048576).toFixed(1) + ' MB';
   }
 
-  // Method selection
-  document.querySelectorAll('.method-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedMethod = btn.dataset.method;
-      document.querySelectorAll('.input-area').forEach(a => a.classList.remove('visible'));
-      if (selectedMethod === 'range') document.getElementById('input-range').classList.add('visible');
-      if (selectedMethod === 'single') document.getElementById('input-single').classList.add('visible');
-      if (selectedMethod === 'every') document.getElementById('input-every').classList.add('visible');
+  function renderFiles() {
+    fileList.innerHTML = '';
+    files.forEach((f, i) => {
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.innerHTML = `
+        <div class="file-item-icon">📕</div>
+        <div class="file-item-info">
+          <div class="file-item-name">${f.name}</div>
+          <div class="file-item-size">${formatBytes(f.size)}</div>
+        </div>
+        <div class="file-item-order">#${i+1}</div>
+        <button class="remove-file" data-idx="${i}">✕</button>
+      `;
+      fileList.appendChild(item);
     });
-  });
-
-  function setFile(file) {
-    selectedFile = file;
-    fileNameEl.textContent = file.name;
-    fileSizeEl.textContent = formatBytes(file.size);
-    filePreview.classList.add('visible');
-    splitBtn.disabled = false;
-    errorMsg.classList.remove('visible');
+    fileCount.style.display = files.length > 0 ? 'block' : 'none';
+    fileCountNum.textContent = files.length;
+    mergeBtn.disabled = files.length < 2;
     downloadArea.classList.remove('visible');
-    progressW.classList.remove('visible');
+    errorMsg.classList.remove('visible');
   }
 
-  function clearFile() {
-    selectedFile = null;
-    fileInput.value = '';
-    filePreview.classList.remove('visible');
-    splitBtn.disabled = true;
-    downloadArea.classList.remove('visible');
-    progressW.classList.remove('visible');
-    errorMsg.classList.remove('visible');
+  function addFiles(newFiles) {
+    for (const f of newFiles) {
+      if (f.type === 'application/pdf' || f.name.endsWith('.pdf')) {
+        files.push(f);
+      }
+    }
+    renderFiles();
   }
 
   dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
   dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
-  dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+  dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); addFiles(e.dataTransfer.files); });
   dropzone.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setFile(fileInput.files[0]); });
-  removeBtn.addEventListener('click', e => { e.stopPropagation(); clearFile(); });
+  fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
 
-  splitBtn.addEventListener('click', async () => {
-    if (!selectedFile) return;
+  fileList.addEventListener('click', e => {
+    if (e.target.classList.contains('remove-file')) {
+      files.splice(parseInt(e.target.dataset.idx), 1);
+      renderFiles();
+    }
+  });
 
-    splitBtn.classList.add('loading');
-    splitBtn.disabled = true;
+  mergeBtn.addEventListener('click', async () => {
+    if (files.length < 2) return;
+
+    mergeBtn.classList.add('loading');
+    mergeBtn.disabled = true;
     progressW.classList.add('visible');
     downloadArea.classList.remove('visible');
     errorMsg.classList.remove('visible');
 
     let prog = 0;
     const ticker = setInterval(() => {
-      prog = Math.min(prog + Math.random() * 15, 85);
+      prog = Math.min(prog + Math.random() * 20, 85);
       progressF.style.width = prog + '%';
-      progressS.textContent = prog < 40 ? 'Uploading...' : 'Splitting...';
+      progressS.textContent = prog < 40 ? 'Uploading...' : 'Merging...';
       progressP.textContent = Math.round(prog) + '%';
     }, 300);
 
     try {
       const formData = new FormData();
-      formData.append('file', selectedFile);
-      formData.append('method', selectedMethod);
+      files.forEach((f, i) => formData.append('files', f));
 
-      if (selectedMethod === 'range') formData.append('ranges', document.getElementById('range-value').value);
-      if (selectedMethod === 'single') formData.append('page', document.getElementById('single-value').value);
-      if (selectedMethod === 'every') formData.append('n', document.getElementById('every-value').value);
-
-      const res = await fetch('/api/split-pdf', { method: 'POST', body: formData });
+      const res = await fetch('/api/merge-pdf', { method: 'POST', body: formData });
       clearInterval(ticker);
 
       if (!res.ok) {
@@ -377,28 +339,26 @@
 
       const blob = await res.blob();
       downloadUrl = URL.createObjectURL(blob);
-      const ext = selectedMethod === 'range' || selectedMethod === 'single' ? '.pdf' : '.zip';
       downloadBtn.onclick = () => {
         const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = 'split' + ext;
-        a.click();
+        a.href = downloadUrl; a.download = 'merged.pdf'; a.click();
       };
       downloadArea.classList.add('visible');
 
     } catch (err) {
       clearInterval(ticker);
-      errorMsg.textContent = '⚠ ' + (err.message || 'Split failed. Please try again.');
+      errorMsg.textContent = '⚠ ' + (err.message || 'Merge failed. Please try again.');
       errorMsg.classList.add('visible');
       progressW.classList.remove('visible');
     } finally {
-      splitBtn.classList.remove('loading');
-      splitBtn.disabled = false;
+      mergeBtn.classList.remove('loading');
+      mergeBtn.disabled = false;
     }
   });
 </script>
 </body>
 </html>
+
 
 
 
