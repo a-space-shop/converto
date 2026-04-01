@@ -1,407 +1,390 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Split PDF Free — Extract Pages Online — Converto</title>
-  <meta name="description" content="Split PDF files online for free. Extract pages, split by range, or separate every page. No sign-up. Files deleted after download.">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0a0a0f; --surface: #12121a; --card: #1a1a26;
-      --border: #2a2a3d; --accent: #7c6af7; --accent2: #f76a8c;
-      --accent3: #6af7c8; --text: #e8e8f0; --muted: #6b6b88;
-      --font-display: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
+﻿# backend/main.py
+# Document Converter API — FastAPI + Python
+# Install deps: pip install fastapi uvicorn python-multipart pdf2docx pdf2image pillow python-docx weasyprint
+
+import os, uuid, shutil, subprocess
+from pathlib import Path
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import threading, time
+
+app = FastAPI(title="Converto API")
+
+# Allow frontend to call the API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # Restrict in production
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Temp directory for uploads/outputs
+UPLOAD_DIR = Path("/tmp/converto")
+UPLOAD_DIR.mkdir(exist_ok=True)
+
+# ─── Auto-delete files older than 1 hour ─────────────────────────────────────
+def cleanup_old_files():
+    while True:
+        now = time.time()
+        for f in UPLOAD_DIR.glob("*"):
+            if now - f.stat().st_mtime > 3600:
+                f.unlink(missing_ok=True)
+        time.sleep(300)  # check every 5 min
+
+threading.Thread(target=cleanup_old_files, daemon=True).start()
+
+# ─── Supported conversion matrix ─────────────────────────────────────────────
+CONVERSIONS = {
+    ("pdf",  "docx"),
+    ("pdf",  "png"),
+    ("pdf",  "jpg"),
+    ("docx", "pdf"),
+    ("docx", "txt"),
+    ("xlsx", "pdf"),
+    ("pptx", "pdf"),
+    ("html", "pdf"),
+    ("png",  "jpg"),
+    ("jpg",  "png"),
+    ("jpg",  "pdf"),
+    ("png",  "pdf"),
+}
+
+# ─── Converter functions ──────────────────────────────────────────────────────
+
+def convert_pdf_to_docx(src: Path, dst: Path):
+    from pdf2docx import Converter
+    cv = Converter(str(src))
+    cv.convert(str(dst), start=0, end=None)
+    cv.close()
+
+def convert_pdf_to_image(src: Path, dst: Path, fmt: str):
+    from pdf2image import convert_from_path
+    pages = convert_from_path(str(src), dpi=150)
+    if len(pages) == 1:
+        pages[0].save(str(dst), fmt.upper())
+    else:
+        # Multi-page: save as zip of images
+        import zipfile, io
+        zip_path = dst.with_suffix('.zip')
+        with zipfile.ZipFile(zip_path, 'w') as zf:
+            for i, page in enumerate(pages):
+                buf = io.BytesIO()
+                page.save(buf, fmt.upper())
+                zf.writestr(f"page_{i+1}.{fmt}", buf.getvalue())
+        dst.rename(zip_path) if dst != zip_path else None
+        return zip_path
+    return dst
+
+def convert_to_pdf_via_libreoffice(src: Path, dst_dir: Path) -> Path:
+    """Use LibreOffice headless for docx/xlsx/pptx/html → pdf"""
+    result = subprocess.run(
+        ["libreoffice", "--headless", "--convert-to", "pdf", "--outdir", str(dst_dir), str(src)],
+        capture_output=True, text=True, timeout=60
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"LibreOffice error: {result.stderr}")
+    out = dst_dir / (src.stem + ".pdf")
+    return out
+
+def convert_html_to_pdf_weasyprint(src: Path, dst: Path):
+    from weasyprint import HTML
+    HTML(filename=str(src)).write_pdf(str(dst))
+
+def convert_image(src: Path, dst: Path, to_fmt: str):
+    from PIL import Image
+    img = Image.open(src).convert("RGB")
+    img.save(str(dst), to_fmt.upper())
+
+def image_to_pdf(src: Path, dst: Path):
+    from PIL import Image
+    img = Image.open(src).convert("RGB")
+    img.save(str(dst), "PDF")
+
+# ─── Main endpoint ────────────────────────────────────────────────────────────
+
+@app.post("/api/convert")
+async def convert_file(
+    file: UploadFile = File(...),
+    from_format: str = Form(...),
+    to_format: str   = Form(...),
+):
+    # Validate conversion pair
+    pair = (from_format.lower(), to_format.lower())
+    if pair not in CONVERSIONS:
+        raise HTTPException(400, detail=f"Conversion {from_format} → {to_format} is not supported.")
+
+    # Save uploaded file
+    job_id  = uuid.uuid4().hex
+    job_dir = UPLOAD_DIR / job_id
+    job_dir.mkdir()
+
+    src_path = job_dir / f"input.{from_format}"
+    with open(src_path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+
+    dst_path = job_dir / f"output.{to_format}"
+
+    try:
+        if pair == ("pdf", "docx"):
+            convert_pdf_to_docx(src_path, dst_path)
+
+        elif pair in {("pdf", "png"), ("pdf", "jpg")}:
+            dst_path = convert_pdf_to_image(src_path, dst_path, to_format)
+
+        elif from_format in {"docx", "xlsx", "pptx"} and to_format == "pdf":
+            dst_path = convert_to_pdf_via_libreoffice(src_path, job_dir)
+
+        elif pair == ("html", "pdf"):
+            try:
+                convert_html_to_pdf_weasyprint(src_path, dst_path)
+            except Exception:
+                dst_path = convert_to_pdf_via_libreoffice(src_path, job_dir)
+
+        elif pair in {("png", "jpg"), ("jpg", "png")}:
+            convert_image(src_path, dst_path, to_format)
+
+        elif pair in {("jpg", "pdf"), ("png", "pdf")}:
+            image_to_pdf(src_path, dst_path)
+
+        elif pair == ("docx", "txt"):
+            from docx import Document
+            doc = Document(str(src_path))
+            text = "\n".join([p.text for p in doc.paragraphs])
+            dst_path.write_text(text, encoding="utf-8")
+
+        else:
+            raise HTTPException(400, detail="Unsupported conversion.")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(500, detail=f"Conversion failed: {str(e)}")
+
+    if not dst_path.exists():
+        raise HTTPException(500, detail="Output file was not created.")
+
+    media_types = {
+        "pdf": "application/pdf",
+        "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "png": "image/png", "jpg": "image/jpeg",
+        "txt": "text/plain", "html": "text/html",
+        "zip": "application/zip",
     }
-    body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; overflow-x: hidden; }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9999; opacity: 0.4;
-    }
-    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.1; pointer-events: none; z-index: 0; }
-    .blob1 { width: 500px; height: 500px; background: var(--accent3); top: -150px; right: -100px; }
-    .blob2 { width: 400px; height: 400px; background: var(--accent); bottom: -100px; left: -80px; }
+    media_type = media_types.get(dst_path.suffix.lstrip("."), "application/octet-stream")
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-      padding: 20px 48px;
-      background: rgba(10,10,15,0.7); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    nav a { text-decoration: none !important; }
-    .logo {
-      font-family: var(--font-display); font-size: 22px; font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .nav-links { display: flex; gap: 40px; justify-content: center; }
-    .nav-links a {
-      font-size: 15px; font-weight: 500; text-decoration: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
+    return FileResponse(
+        path=str(dst_path),
+        media_type=media_type,
+        filename=f"converted.{dst_path.suffix.lstrip('.')}",
+    )
 
-    .hero { position: relative; z-index: 1; padding: 140px 24px 60px; text-align: center; }
-    .eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent3); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s; }
-    h1 { font-family: var(--font-display); font-size: clamp(36px, 6vw, 72px); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s; }
-    h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .sub { font-size: 14px; color: var(--muted); max-width: 440px; margin: 0 auto 48px; line-height: 1.7; opacity: 0; animation: fadeUp 0.6s ease forwards 0.6s; }
+@app.get("/health")
+def health(): return {"status": "ok"}
+# Add these routes to your existing main.py
+# Paste them BEFORE the last line: app.mount("/", ...)
 
-    .tool-card {
-      position: relative; z-index: 1; max-width: 700px; margin: 0 auto;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 20px; padding: 40px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
-      opacity: 0; animation: fadeUp 0.6s ease forwards 0.8s;
-    }
+# ─── Merge PDF ────────────────────────────────────────────────────────────────
 
-    .dropzone {
-      border: 2px dashed var(--border); border-radius: 14px;
-      padding: 40px 24px; text-align: center; cursor: pointer;
-      background: var(--surface); transition: all 0.25s ease; margin-bottom: 24px;
-    }
-    .dropzone:hover, .dropzone.drag-over { border-color: var(--accent3); box-shadow: 0 8px 32px rgba(106,247,200,0.15); }
-    .drop-icon { font-size: 36px; margin-bottom: 12px; display: block; }
-    .drop-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-    .drop-hint { font-size: 12px; color: var(--muted); }
-    .drop-hint span { color: var(--accent3); cursor: pointer; text-decoration: underline; }
-    #file-input { display: none; }
+@app.post("/api/merge-pdf")
+async def merge_pdf(files: list[UploadFile] = File(...)):
+    if len(files) < 2:
+        raise HTTPException(400, detail="Please upload at least 2 PDF files.")
+    if len(files) > 20:
+        raise HTTPException(400, detail="Maximum 20 files allowed.")
 
-    .file-preview { display: none; align-items: center; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; }
-    .file-preview.visible { display: flex; }
-    .file-icon-box { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent3)); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .file-info { flex: 1; min-width: 0; }
-    .file-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .file-size { font-size: 11px; color: var(--muted); margin-top: 3px; }
-    .remove-btn { background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 4px; transition: color 0.2s; }
-    .remove-btn:hover { color: var(--accent2); }
+    job_id  = uuid.uuid4().hex
+    job_dir = UPLOAD_DIR / job_id
+    job_dir.mkdir()
 
-    /* Split method selector */
-    .method-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: block; }
-    .methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
-    .method-btn {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 14px; cursor: pointer;
-      text-align: left; transition: all 0.2s; color: var(--text);
-      font-family: var(--font-mono);
-    }
-    .method-btn:hover { border-color: var(--accent3); }
-    .method-btn.active { border-color: var(--accent3); background: rgba(106,247,200,0.06); }
-    .method-btn .method-name { font-family: var(--font-display); font-size: 13px; font-weight: 700; margin-bottom: 3px; }
-    .method-btn .method-desc { font-size: 11px; color: var(--muted); }
-    .method-btn.active .method-desc { color: var(--accent3); }
+    try:
+        import PyPDF2
 
-    /* Input area */
-    .input-area { display: none; margin-bottom: 20px; }
-    .input-area.visible { display: block; }
-    .input-area label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
-    .input-area input {
-      width: 100%; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; color: var(--text); font-family: var(--font-mono);
-      font-size: 13px; padding: 12px 16px; outline: none; transition: border-color 0.2s;
-    }
-    .input-area input:focus { border-color: var(--accent3); }
-    .input-area .hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+        merger = PyPDF2.PdfMerger()
 
-    .split-btn {
-      width: 100%; padding: 16px;
-      background: linear-gradient(135deg, var(--accent), var(--accent3));
-      border: none; border-radius: 12px; color: #fff;
-      font-family: var(--font-display); font-size: 16px; font-weight: 700;
-      cursor: pointer; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-    .split-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(124,106,247,0.4); }
-    .split-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .split-btn.loading .btn-text { display: none; }
-    .split-btn.loading .btn-spinner { display: block; }
-    .btn-spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto; }
+        for i, file in enumerate(files):
+            file_path = job_dir / f"input_{i}.pdf"
+            with open(file_path, "wb") as f:
+                shutil.copyfileobj(file.file, f)
+            merger.append(str(file_path))
 
-    .progress-wrap { display: none; margin-top: 16px; }
-    .progress-wrap.visible { display: block; }
-    .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
-    .progress-bar { height: 4px; background: var(--border); border-radius: 100px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent3)); border-radius: 100px; width: 0%; transition: width 0.3s ease; }
+        output_path = job_dir / "merged.pdf"
+        with open(output_path, "wb") as f:
+            merger.write(f)
+        merger.close()
 
-    .download-area { display: none; margin-top: 20px; background: rgba(106,247,200,0.05); border: 1px solid rgba(106,247,200,0.2); border-radius: 12px; padding: 20px 24px; align-items: center; gap: 16px; }
-    .download-area.visible { display: flex; }
-    .download-text strong { font-family: var(--font-display); font-size: 14px; color: var(--accent3); display: block; margin-bottom: 2px; }
-    .download-text small { font-size: 11px; color: var(--muted); }
-    .download-btn { background: var(--accent3); color: #0a0a0f; border: none; border-radius: 8px; padding: 10px 20px; font-family: var(--font-display); font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; white-space: nowrap; }
-    .download-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+        return FileResponse(
+            path=str(output_path),
+            media_type="application/pdf",
+            filename="merged.pdf"
+        )
 
-    .error-msg { display: none; margin-top: 16px; background: rgba(247,106,140,0.08); border: 1px solid rgba(247,106,140,0.25); border-radius: 10px; padding: 14px 18px; font-size: 13px; color: var(--accent2); }
-    .error-msg.visible { display: block; }
-
-    .features { position: relative; z-index: 1; max-width: 700px; margin: 80px auto; padding: 0 24px; }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .feat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s, transform 0.2s; }
-    .feat:hover { border-color: var(--accent3); transform: translateY(-3px); }
-    .feat-icon { font-size: 24px; margin-bottom: 12px; }
-    .feat-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-    .feat-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
-
-    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); }
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--text); }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (max-width: 600px) {
-      nav { padding: 16px 20px; } .tool-card { padding: 24px; }
-      .methods { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 8px; text-align: center; }
-    }
-  </style>
-</head>
-<body>
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 48px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
-  <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,#6af7c8,#6af77c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Converto</div>
-  <div style="display:flex;gap:32px;align-items:center">
-    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#6af77c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Convert PDF</a>
-    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#6af77c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Merge PDF</a>
-    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#6af77c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Compress PDF</a>
-    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#6af77c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Split PDF</a>
-  </div>
-</nav>
-
-<section class="hero">
-  <p class="eyebrow">✦ PDF Tool</p>
-  <h1>Split your PDF.<br><em>Your way.</em></h1>
-  <p class="sub">Extract pages, split by range, or separate every page. Free, private, no sign-up required.</p>
-
-  <div class="tool-card">
-
-    <div class="dropzone" id="dropzone">
-      <span class="drop-icon">✂️</span>
-      <div class="drop-title">Drop your PDF here</div>
-      <div class="drop-hint">or <span onclick="document.getElementById('file-input').click()">browse to upload</span></div>
-    </div>
-    <input type="file" id="file-input" accept=".pdf" />
-
-    <div class="file-preview" id="file-preview">
-      <div class="file-icon-box">📕</div>
-      <div class="file-info">
-        <div class="file-name" id="file-name">document.pdf</div>
-        <div class="file-size" id="file-size">2.4 MB</div>
-      </div>
-      <button class="remove-btn" id="remove-btn">✕</button>
-    </div>
-
-    <span class="method-label">Split method</span>
-    <div class="methods">
-      <button class="method-btn active" data-method="range">
-        <div class="method-name">✂ Page range</div>
-        <div class="method-desc">e.g. pages 1-3, 5, 7-9</div>
-      </button>
-      <button class="method-btn" data-method="single">
-        <div class="method-name">📄 Single page</div>
-        <div class="method-desc">Extract one page</div>
-      </button>
-      <button class="method-btn" data-method="all">
-        <div class="method-name">📑 All pages</div>
-        <div class="method-desc">Split every page</div>
-      </button>
-      <button class="method-btn" data-method="every">
-        <div class="method-name">🔢 Every N pages</div>
-        <div class="method-desc">Split every 2, 3... pages</div>
-      </button>
-    </div>
-
-    <!-- Range input -->
-    <div class="input-area visible" id="input-range">
-      <label>Page ranges</label>
-      <input type="text" id="range-value" placeholder="e.g. 1-3, 5, 7-9" />
-      <div class="hint">Separate multiple ranges with commas</div>
-    </div>
-
-    <!-- Single page input -->
-    <div class="input-area" id="input-single">
-      <label>Page number</label>
-      <input type="number" id="single-value" placeholder="e.g. 3" min="1" />
-    </div>
-
-    <!-- Every N pages input -->
-    <div class="input-area" id="input-every">
-      <label>Split every N pages</label>
-      <input type="number" id="every-value" placeholder="e.g. 2" min="1" />
-      <div class="hint">e.g. enter 2 to split into chunks of 2 pages each</div>
-    </div>
-
-    <button class="split-btn" id="split-btn" disabled>
-      <span class="btn-text">Split PDF</span>
-      <span class="btn-spinner"></span>
-    </button>
-
-    <div class="progress-wrap" id="progress-wrap">
-      <div class="progress-label"><span id="progress-status">Splitting...</span><span id="progress-pct">0%</span></div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-    </div>
-
-    <div class="error-msg" id="error-msg"></div>
-
-    <div class="download-area" id="download-area">
-      <div class="download-text">
-        <strong>✓ Split complete!</strong>
-        <small>Your split PDF is ready to download</small>
-      </div>
-      <button class="download-btn" id="download-btn">Download</button>
-    </div>
-
-  </div>
-</section>
-
-<section class="features">
-  <div class="features-grid">
-    <div class="feat"><div class="feat-icon">✂️</div><div class="feat-title">4 split modes</div><div class="feat-desc">Split by range, single page, every page, or every N pages.</div></div>
-    <div class="feat"><div class="feat-icon">🔒</div><div class="feat-title">Private</div><div class="feat-desc">Files are deleted automatically within 60 minutes of upload.</div></div>
-    <div class="feat"><div class="feat-icon">📦</div><div class="feat-title">ZIP download</div><div class="feat-desc">Multiple pages are packaged into a ZIP file for easy download.</div></div>
-  </div>
-</section>
-
-<footer>
-  <div>© 2026 Converto</div>
-  <div><a href="/privacy.html">Privacy Policy</a></div>
-</footer>
-
-<script>
-  const dropzone   = document.getElementById('dropzone');
-  const fileInput  = document.getElementById('file-input');
-  const filePreview= document.getElementById('file-preview');
-  const fileNameEl = document.getElementById('file-name');
-  const fileSizeEl = document.getElementById('file-size');
-  const removeBtn  = document.getElementById('remove-btn');
-  const splitBtn   = document.getElementById('split-btn');
-  const progressW  = document.getElementById('progress-wrap');
-  const progressF  = document.getElementById('progress-fill');
-  const progressS  = document.getElementById('progress-status');
-  const progressP  = document.getElementById('progress-pct');
-  const errorMsg   = document.getElementById('error-msg');
-  const downloadArea = document.getElementById('download-area');
-  const downloadBtn  = document.getElementById('download-btn');
-
-  let selectedFile = null;
-  let selectedMethod = 'range';
-  let downloadUrl = null;
-
-  function formatBytes(b) {
-    if (b < 1024) return b + ' B';
-    if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-    return (b/1048576).toFixed(1) + ' MB';
-  }
-
-  // Method selection
-  document.querySelectorAll('.method-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedMethod = btn.dataset.method;
-      document.querySelectorAll('.input-area').forEach(a => a.classList.remove('visible'));
-      if (selectedMethod === 'range') document.getElementById('input-range').classList.add('visible');
-      if (selectedMethod === 'single') document.getElementById('input-single').classList.add('visible');
-      if (selectedMethod === 'every') document.getElementById('input-every').classList.add('visible');
-    });
-  });
-
-  function setFile(file) {
-    selectedFile = file;
-    fileNameEl.textContent = file.name;
-    fileSizeEl.textContent = formatBytes(file.size);
-    filePreview.classList.add('visible');
-    splitBtn.disabled = false;
-    errorMsg.classList.remove('visible');
-    downloadArea.classList.remove('visible');
-    progressW.classList.remove('visible');
-  }
-
-  function clearFile() {
-    selectedFile = null;
-    fileInput.value = '';
-    filePreview.classList.remove('visible');
-    splitBtn.disabled = true;
-    downloadArea.classList.remove('visible');
-    progressW.classList.remove('visible');
-    errorMsg.classList.remove('visible');
-  }
-
-  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
-  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
-  dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
-  dropzone.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setFile(fileInput.files[0]); });
-  removeBtn.addEventListener('click', e => { e.stopPropagation(); clearFile(); });
-
-  splitBtn.addEventListener('click', async () => {
-    if (!selectedFile) return;
-
-    splitBtn.classList.add('loading');
-    splitBtn.disabled = true;
-    progressW.classList.add('visible');
-    downloadArea.classList.remove('visible');
-    errorMsg.classList.remove('visible');
-
-    let prog = 0;
-    const ticker = setInterval(() => {
-      prog = Math.min(prog + Math.random() * 15, 85);
-      progressF.style.width = prog + '%';
-      progressS.textContent = prog < 40 ? 'Uploading...' : 'Splitting...';
-      progressP.textContent = Math.round(prog) + '%';
-    }, 300);
-
-    try {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      formData.append('method', selectedMethod);
-
-      if (selectedMethod === 'range') formData.append('ranges', document.getElementById('range-value').value);
-      if (selectedMethod === 'single') formData.append('page', document.getElementById('single-value').value);
-      if (selectedMethod === 'every') formData.append('n', document.getElementById('every-value').value);
-
-      const res = await fetch('/api/split-pdf', { method: 'POST', body: formData });
-      clearInterval(ticker);
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ detail: 'Server error' }));
-        throw new Error(err.detail || `HTTP ${res.status}`);
-      }
-
-      progressF.style.width = '100%';
-      progressS.textContent = 'Done!';
-      progressP.textContent = '100%';
-
-      const blob = await res.blob();
-      downloadUrl = URL.createObjectURL(blob);
-      const ext = selectedMethod === 'range' || selectedMethod === 'single' ? '.pdf' : '.zip';
-      downloadBtn.onclick = () => {
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = 'split' + ext;
-        a.click();
-      };
-      downloadArea.classList.add('visible');
-
-    } catch (err) {
-      clearInterval(ticker);
-      errorMsg.textContent = '⚠ ' + (err.message || 'Split failed. Please try again.');
-      errorMsg.classList.add('visible');
-      progressW.classList.remove('visible');
-    } finally {
-      splitBtn.classList.remove('loading');
-      splitBtn.disabled = false;
-    }
-  });
-</script>
-</body>
-</html>
+    except Exception as e:
+        raise HTTPException(500, detail=f"Merge failed: {str(e)}")
 
 
+# ─── Compress PDF ─────────────────────────────────────────────────────────────
+
+@app.post("/api/compress-pdf")
+async def compress_pdf(
+    file: UploadFile = File(...),
+    level: str = Form("ebook")
+):
+    # Valid Ghostscript PDFSETTINGS levels
+    valid_levels = {"screen", "ebook", "printer", "prepress"}
+    if level not in valid_levels:
+        level = "ebook"
+
+    job_id  = uuid.uuid4().hex
+    job_dir = UPLOAD_DIR / job_id
+    job_dir.mkdir()
+
+    src_path = job_dir / "input.pdf"
+    dst_path = job_dir / "compressed.pdf"
+
+    with open(src_path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+
+    try:
+        # Try Ghostscript first (best compression)
+        result = subprocess.run([
+            "gs",
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.4",
+            f"-dPDFSETTINGS=/{level}",
+            "-dNOPAUSE", "-dQUIET", "-dBATCH",
+            f"-sOutputFile={dst_path}",
+            str(src_path)
+        ], capture_output=True, text=True, timeout=120)
+
+        if result.returncode != 0 or not dst_path.exists():
+            raise RuntimeError("Ghostscript failed")
+
+    except Exception:
+        # Fallback: use PyPDF2 to re-write (basic compression)
+        try:
+            import PyPDF2
+            reader = PyPDF2.PdfReader(str(src_path), strict=False)
+            writer = PyPDF2.PdfWriter()
+            for page in reader.pages:
+                page.compress_content_streams()
+                writer.add_page(page)
+            with open(dst_path, "wb") as f:
+                writer.write(f)
+        except Exception as e2:
+            raise HTTPException(500, detail=f"Compression failed: {str(e2)}")
+
+    if not dst_path.exists():
+        raise HTTPException(500, detail="Compressed file was not created.")
+
+    return FileResponse(
+        path=str(dst_path),
+        media_type="application/pdf",
+        filename="compressed.pdf"
+    )
 
 
+# Add this route to main.py BEFORE the app.mount line
+
+@app.post("/api/split-pdf")
+async def split_pdf(
+    file: UploadFile = File(...),
+    method: str = Form("range"),
+    ranges: str = Form(""),
+    page: int = Form(1),
+    n: int = Form(2),
+):
+    import PyPDF2, zipfile, io
+
+    job_id  = uuid.uuid4().hex
+    job_dir = UPLOAD_DIR / job_id
+    job_dir.mkdir()
+
+    src_path = job_dir / "input.pdf"
+    with open(src_path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+
+    try:
+        reader = PyPDF2.PdfReader(str(src_path), strict=False)
+        total_pages = len(reader.pages)
+
+        def extract_pages(page_indices, out_path):
+            writer = PyPDF2.PdfWriter()
+            for i in page_indices:
+                if 0 <= i < total_pages:
+                    writer.add_page(reader.pages[i])
+            with open(out_path, "wb") as f:
+                writer.write(f)
+
+        def parse_ranges(ranges_str, total):
+            indices = []
+            for part in ranges_str.split(','):
+                part = part.strip()
+                if '-' in part:
+                    a, b = part.split('-')
+                    indices += list(range(int(a)-1, int(b)))
+                elif part.isdigit():
+                    indices.append(int(part)-1)
+            return [i for i in indices if 0 <= i < total]
+
+        if method == "range":
+            indices = parse_ranges(ranges, total_pages)
+            if not indices:
+                raise HTTPException(400, detail="Invalid page range.")
+            out_path = job_dir / "split.pdf"
+            extract_pages(indices, out_path)
+            return FileResponse(str(out_path), media_type="application/pdf", filename="split.pdf")
+
+        elif method == "single":
+            idx = page - 1
+            if idx < 0 or idx >= total_pages:
+                raise HTTPException(400, detail=f"Page {page} does not exist.")
+            out_path = job_dir / f"page_{page}.pdf"
+            extract_pages([idx], out_path)
+            return FileResponse(str(out_path), media_type="application/pdf", filename=f"page_{page}.pdf")
+
+        elif method == "all":
+            zip_buffer = io.BytesIO()
+            with zipfile.ZipFile(zip_buffer, 'w') as zf:
+                for i in range(total_pages):
+                    out_path = job_dir / f"page_{i+1}.pdf"
+                    extract_pages([i], out_path)
+                    zf.write(out_path, f"page_{i+1}.pdf")
+            zip_path = job_dir / "all_pages.zip"
+            with open(zip_path, "wb") as f:
+                f.write(zip_buffer.getvalue())
+            return FileResponse(str(zip_path), media_type="application/zip", filename="all_pages.zip")
+
+        elif method == "every":
+            if n < 1:
+                raise HTTPException(400, detail="N must be at least 1.")
+            zip_buffer = io.BytesIO()
+            with zipfile.ZipFile(zip_buffer, 'w') as zf:
+                chunk = 0
+                for start in range(0, total_pages, n):
+                    chunk += 1
+                    indices = list(range(start, min(start + n, total_pages)))
+                    out_path = job_dir / f"chunk_{chunk}.pdf"
+                    extract_pages(indices, out_path)
+                    zf.write(out_path, f"chunk_{chunk}_pages_{start+1}-{indices[-1]+1}.pdf")
+            zip_path = job_dir / "split_chunks.zip"
+            with open(zip_path, "wb") as f:
+                f.write(zip_buffer.getvalue())
+            return FileResponse(str(zip_path), media_type="application/zip", filename="split_chunks.zip")
+
+        else:
+            raise HTTPException(400, detail="Invalid split method.")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(500, detail=f"Split failed: {str(e)}")
+
+# Serve frontend (place index.html in ../frontend/)
+if Path("index.html").exists():
+    app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
 
