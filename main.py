@@ -383,8 +383,21 @@ async def split_pdf(
     except Exception as e:
         raise HTTPException(500, detail=f"Split failed: {str(e)}")
 
+@app.get("/pdf-to-word")
+async def pdf_to_word():
+    return FileResponse("pdf-to-word.html")
+
+@app.get("/word-to-pdf")
+async def word_to_pdf():
+    return FileResponse("word-to-pdf.html")
+
+@app.get("/jpg-to-pdf")
+async def jpg_to_pdf():
+    return FileResponse("jpg-to-pdf.html")
+
 # Serve frontend (place index.html in ../frontend/)
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 
