@@ -90,11 +90,7 @@
   <h1>Compress your PDF.<br><em>Keep the quality.</em></h1>
   <p class="sub">Reduce your PDF file size online for free without losing quality. Choose from three compression levels. No sign-up required.</p>
   <div class="tool-card">
-    <div class="level-selector">
-      <span class="level-label">Compression level</span>
-      <div class="levels">
-        <button class="level-btn" data-level="screen"><div class="level-name">🗜️ Maximum</div><div class="level-desc">Smallest size<br>Lower quality</div></button>
-        <button class="level-btn active" data-level="ebook"><div class="level-name">⚖️ Balanced</div><div class="level-desc">Good size reduction<br>Good quality</div></button>
+    <div class="level-desc">Good size reduction<br>Good quality</div></button>
         <button class="level-btn" data-level="printer"><div class="level-name">🖨️ Minimal</div><div class="level-desc">Best quality<br>Moderate reduction</div></button>
       </div>
     </div>
@@ -134,8 +130,7 @@
 <script>
 const {PDFDocument}=PDFLib;
 const dropzone=document.getElementById('dropzone'),fileInput=document.getElementById('file-input'),filePreview=document.getElementById('file-preview'),fileNameEl=document.getElementById('file-name'),fileSizeEl=document.getElementById('file-size'),removeBtn=document.getElementById('remove-btn'),compressBtn=document.getElementById('compress-btn'),progressW=document.getElementById('progress-wrap'),progressF=document.getElementById('progress-fill'),progressS=document.getElementById('progress-status'),progressP=document.getElementById('progress-pct'),errorMsg=document.getElementById('error-msg'),resultArea=document.getElementById('result-area'),downloadBtn=document.getElementById('download-btn');
-let selectedFile=null,origSize=0,selectedLevel="ebook";
-document.querySelectorAll(".level-btn").forEach(btn=>{btn.addEventListener("click",()=>{document.querySelectorAll(".level-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");selectedLevel=btn.dataset.level})});
+let selectedFile=null,origSize=0;
 function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(2)+' MB'}
 function setFile(file){selectedFile=file;origSize=file.size;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');compressBtn.disabled=false;errorMsg.classList.remove('visible');resultArea.classList.remove('visible');progressW.classList.remove('visible')}
 function clearFile(){selectedFile=null;fileInput.value='';filePreview.classList.remove('visible');compressBtn.disabled=true;resultArea.classList.remove('visible');progressW.classList.remove('visible');errorMsg.classList.remove('visible')}
@@ -170,6 +165,8 @@ finally{compressBtn.classList.remove('loading');compressBtn.disabled=false}
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div><div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
+
 
 
 
