@@ -236,129 +236,47 @@
   <div><a href="/privacy.html">Privacy Policy</a></div>
 </footer>
 
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script><script>
-  const dropzone   = document.getElementById('dropzone');
-  const fileInput  = document.getElementById('file-input');
-  const fileList   = document.getElementById('file-list');
-  const fileCount  = document.getElementById('file-count');
-  const fileCountNum = document.getElementById('file-count-num');
-  const mergeBtn   = document.getElementById('merge-btn');
-  const progressW  = document.getElementById('progress-wrap');
-  const progressF  = document.getElementById('progress-fill');
-  const progressS  = document.getElementById('progress-status');
-  const progressP  = document.getElementById('progress-pct');
-  const errorMsg   = document.getElementById('error-msg');
-  const downloadArea = document.getElementById('download-area');
-  const downloadBtn  = document.getElementById('download-btn');
-
-  let files = [];
-  let downloadUrl = null;
-
-  function formatBytes(b) {
-    if (b < 1024) return b + ' B';
-    if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-    return (b/1048576).toFixed(1) + ' MB';
-  }
-
-  function renderFiles() {
-    fileList.innerHTML = '';
-    files.forEach((f, i) => {
-      const item = document.createElement('div');
-      item.className = 'file-item';
-      item.innerHTML = `
-        <div class="file-item-icon">📕</div>
-        <div class="file-item-info">
-          <div class="file-item-name">${f.name}</div>
-          <div class="file-item-size">${formatBytes(f.size)}</div>
-        </div>
-        <div class="file-item-order">#${i+1}</div>
-        <button class="remove-file" data-idx="${i}">✕</button>
-      `;
-      fileList.appendChild(item);
-    });
-    fileCount.style.display = files.length > 0 ? 'block' : 'none';
-    fileCountNum.textContent = files.length;
-    mergeBtn.disabled = files.length < 2;
-    downloadArea.classList.remove('visible');
-    errorMsg.classList.remove('visible');
-  }
-
-  function addFiles(newFiles) {
-    for (const f of newFiles) {
-      if (f.type === 'application/pdf' || f.name.endsWith('.pdf')) {
-        files.push(f);
-      }
-    }
-    renderFiles();
-  }
-
-  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
-  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
-  dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); addFiles(e.dataTransfer.files); });
-  dropzone.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
-
-  fileList.addEventListener('click', e => {
-    if (e.target.classList.contains('remove-file')) {
-      files.splice(parseInt(e.target.dataset.idx), 1);
-      renderFiles();
-    }
-  });
-
-  mergeBtn.addEventListener('click', async () => {
-    if (files.length < 2) return;
-
-    mergeBtn.classList.add('loading');
-    mergeBtn.disabled = true;
-    progressW.classList.add('visible');
-    downloadArea.classList.remove('visible');
-    errorMsg.classList.remove('visible');
-
-    let prog = 0;
-    const ticker = setInterval(() => {
-      prog = Math.min(prog + Math.random() * 20, 85);
-      progressF.style.width = prog + '%';
-      progressS.textContent = prog < 40 ? 'Uploading...' : 'Merging...';
-      progressP.textContent = Math.round(prog) + '%';
-    }, 300);
-
-    try {
-      const formData = new FormData();
-      files.forEach((f, i) => formData.append('files', f));
-
-      const res = await fetch('/api/merge-pdf', { method: 'POST', body: formData });
-      clearInterval(ticker);
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ detail: 'Server error' }));
-        throw new Error(err.detail || `HTTP ${res.status}`);
-      }
-
-      progressF.style.width = '100%';
-      progressS.textContent = 'Done!';
-      progressP.textContent = '100%';
-
-      const blob = await res.blob();
-      downloadUrl = URL.createObjectURL(blob);
-      downloadBtn.onclick = () => {
-        const a = document.createElement('a');
-        a.href = downloadUrl; a.download = 'merged.pdf'; a.click();
-      };
-      downloadArea.classList.add('visible');
-
-    } catch (err) {
-      clearInterval(ticker);
-      errorMsg.textContent = '⚠ ' + (err.message || 'Merge failed. Please try again.');
-      errorMsg.classList.add('visible');
-      progressW.classList.remove('visible');
-    } finally {
-      mergeBtn.classList.remove('loading');
-      mergeBtn.disabled = false;
-    }
-  });
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script><script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+const {PDFDocument}=PDFLib;
+const dropzone=document.getElementById('dropzone'),fileInput=document.getElementById('file-input'),fileList=document.getElementById('file-list'),fileCount=document.getElementById('file-count'),fileCountNum=document.getElementById('file-count-num'),mergeBtn=document.getElementById('merge-btn'),progressW=document.getElementById('progress-wrap'),progressF=document.getElementById('progress-fill'),progressS=document.getElementById('progress-status'),progressP=document.getElementById('progress-pct'),errorMsg=document.getElementById('error-msg'),downloadArea=document.getElementById('download-area'),downloadBtn=document.getElementById('download-btn');
+let files=[];
+function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB'}
+function renderFiles(){fileList.innerHTML='';files.forEach((f,i)=>{const item=document.createElement('div');item.className='file-item';item.innerHTML='<div class="file-item-icon">📕</div><div class="file-item-info"><div class="file-item-name">'+f.name+'</div><div class="file-item-size">'+formatBytes(f.size)+'</div></div><div class="file-item-order">#'+(i+1)+'</div><button class="remove-file" data-idx="'+i+'">✕</button>';fileList.appendChild(item)});fileCount.style.display=files.length>0?'block':'none';fileCountNum.textContent=files.length;mergeBtn.disabled=files.length<2;downloadArea.classList.remove('visible');errorMsg.classList.remove('visible')}
+function addFiles(newFiles){for(const f of newFiles){if(f.type==='application/pdf'||f.name.endsWith('.pdf'))files.push(f)}renderFiles()}
+dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
+dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
+dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('drag-over');addFiles(e.dataTransfer.files)});
+dropzone.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',()=>{addFiles(fileInput.files);fileInput.value=''});
+fileList.addEventListener('click',e=>{if(e.target.classList.contains('remove-file')){files.splice(parseInt(e.target.dataset.idx),1);renderFiles()}});
+mergeBtn.addEventListener('click',async()=>{
+if(files.length<2)return;
+mergeBtn.classList.add('loading');mergeBtn.disabled=true;progressW.classList.add('visible');downloadArea.classList.remove('visible');errorMsg.classList.remove('visible');
+try{
+const mergedPdf=await PDFDocument.create();
+for(let i=0;i<files.length;i++){
+progressF.style.width=((i/files.length)*90)+'%';
+progressS.textContent='Processing file '+(i+1)+' of '+files.length+'...';
+progressP.textContent=Math.round((i/files.length)*90)+'%';
+const arrayBuffer=await files[i].arrayBuffer();
+const pdf=await PDFDocument.load(arrayBuffer);
+const pages=await mergedPdf.copyPages(pdf,pdf.getPageIndices());
+pages.forEach(p=>mergedPdf.addPage(p));
+}
+progressF.style.width='100%';progressS.textContent='Done!';progressP.textContent='100%';
+const mergedBytes=await mergedPdf.save();
+const blob=new Blob([mergedBytes],{type:'application/pdf'});
+const url=URL.createObjectURL(blob);
+downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download='merged.pdf';a.click()};
+downloadArea.classList.add('visible');
+}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');progressW.classList.remove('visible')}
+finally{mergeBtn.classList.remove('loading');mergeBtn.disabled=false}
+});
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
 
 
 
