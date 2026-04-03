@@ -262,135 +262,49 @@
   <div><a href="/privacy.html">Privacy Policy</a></div>
 </footer>
 
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
-  const dropzone   = document.getElementById('dropzone');
-  const fileInput  = document.getElementById('file-input');
-  const filePreview= document.getElementById('file-preview');
-  const fileNameEl = document.getElementById('file-name');
-  const fileSizeEl = document.getElementById('file-size');
-  const removeBtn  = document.getElementById('remove-btn');
-  const splitBtn   = document.getElementById('split-btn');
-  const progressW  = document.getElementById('progress-wrap');
-  const progressF  = document.getElementById('progress-fill');
-  const progressS  = document.getElementById('progress-status');
-  const progressP  = document.getElementById('progress-pct');
-  const errorMsg   = document.getElementById('error-msg');
-  const downloadArea = document.getElementById('download-area');
-  const downloadBtn  = document.getElementById('download-btn');
-
-  let selectedFile = null;
-  let selectedMethod = 'range';
-  let downloadUrl = null;
-
-  function formatBytes(b) {
-    if (b < 1024) return b + ' B';
-    if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-    return (b/1048576).toFixed(1) + ' MB';
-  }
-
-  // Method selection
-  document.querySelectorAll('.method-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedMethod = btn.dataset.method;
-      document.querySelectorAll('.input-area').forEach(a => a.classList.remove('visible'));
-      if (selectedMethod === 'range') document.getElementById('input-range').classList.add('visible');
-      if (selectedMethod === 'single') document.getElementById('input-single').classList.add('visible');
-      if (selectedMethod === 'every') document.getElementById('input-every').classList.add('visible');
-    });
-  });
-
-  function setFile(file) {
-    selectedFile = file;
-    fileNameEl.textContent = file.name;
-    fileSizeEl.textContent = formatBytes(file.size);
-    filePreview.classList.add('visible');
-    splitBtn.disabled = false;
-    errorMsg.classList.remove('visible');
-    downloadArea.classList.remove('visible');
-    progressW.classList.remove('visible');
-  }
-
-  function clearFile() {
-    selectedFile = null;
-    fileInput.value = '';
-    filePreview.classList.remove('visible');
-    splitBtn.disabled = true;
-    downloadArea.classList.remove('visible');
-    progressW.classList.remove('visible');
-    errorMsg.classList.remove('visible');
-  }
-
-  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
-  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
-  dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
-  dropzone.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setFile(fileInput.files[0]); });
-  removeBtn.addEventListener('click', e => { e.stopPropagation(); clearFile(); });
-
-  splitBtn.addEventListener('click', async () => {
-    if (!selectedFile) return;
-
-    splitBtn.classList.add('loading');
-    splitBtn.disabled = true;
-    progressW.classList.add('visible');
-    downloadArea.classList.remove('visible');
-    errorMsg.classList.remove('visible');
-
-    let prog = 0;
-    const ticker = setInterval(() => {
-      prog = Math.min(prog + Math.random() * 15, 85);
-      progressF.style.width = prog + '%';
-      progressS.textContent = prog < 40 ? 'Uploading...' : 'Splitting...';
-      progressP.textContent = Math.round(prog) + '%';
-    }, 300);
-
-    try {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      formData.append('method', selectedMethod);
-
-      if (selectedMethod === 'range') formData.append('ranges', document.getElementById('range-value').value);
-      if (selectedMethod === 'single') formData.append('page', document.getElementById('single-value').value);
-      if (selectedMethod === 'every') formData.append('n', document.getElementById('every-value').value);
-
-      const res = await fetch('/api/split-pdf', { method: 'POST', body: formData });
-      clearInterval(ticker);
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ detail: 'Server error' }));
-        throw new Error(err.detail || `HTTP ${res.status}`);
-      }
-
-      progressF.style.width = '100%';
-      progressS.textContent = 'Done!';
-      progressP.textContent = '100%';
-
-      const blob = await res.blob();
-      downloadUrl = URL.createObjectURL(blob);
-      const ext = selectedMethod === 'range' || selectedMethod === 'single' ? '.pdf' : '.zip';
-      downloadBtn.onclick = () => {
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = 'split' + ext;
-        a.click();
-      };
-      downloadArea.classList.add('visible');
-
-    } catch (err) {
-      clearInterval(ticker);
-      errorMsg.textContent = '⚠ ' + (err.message || 'Split failed. Please try again.');
-      errorMsg.classList.add('visible');
-      progressW.classList.remove('visible');
-    } finally {
-      splitBtn.classList.remove('loading');
-      splitBtn.disabled = false;
-    }
-  });
+const {PDFDocument}=PDFLib;
+const dropzone=document.getElementById('dropzone'),fileInput=document.getElementById('file-input'),filePreview=document.getElementById('file-preview'),fileNameEl=document.getElementById('file-name'),fileSizeEl=document.getElementById('file-size'),removeBtn=document.getElementById('remove-btn'),splitBtn=document.getElementById('split-btn'),progressW=document.getElementById('progress-wrap'),progressF=document.getElementById('progress-fill'),progressS=document.getElementById('progress-status'),progressP=document.getElementById('progress-pct'),errorMsg=document.getElementById('error-msg'),downloadArea=document.getElementById('download-area'),downloadBtn=document.getElementById('download-btn');
+let selectedFile=null,selectedMethod='range';
+function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB'}
+document.querySelectorAll('.method-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedMethod=btn.dataset.method;document.querySelectorAll('.input-area').forEach(a=>a.classList.remove('visible'));if(selectedMethod==='range')document.getElementById('input-range').classList.add('visible');if(selectedMethod==='single')document.getElementById('input-single').classList.add('visible');if(selectedMethod==='every')document.getElementById('input-every').classList.add('visible')})});
+function setFile(file){selectedFile=file;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');splitBtn.disabled=false;errorMsg.classList.remove('visible');downloadArea.classList.remove('visible');progressW.classList.remove('visible')}
+function clearFile(){selectedFile=null;fileInput.value='';filePreview.classList.remove('visible');splitBtn.disabled=true;downloadArea.classList.remove('visible');progressW.classList.remove('visible');errorMsg.classList.remove('visible')}
+dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
+dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
+dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('drag-over');if(e.dataTransfer.files[0])setFile(e.dataTransfer.files[0])});
+dropzone.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',()=>{if(fileInput.files[0])setFile(fileInput.files[0])});
+removeBtn.addEventListener('click',e=>{e.stopPropagation();clearFile()});
+function parseRanges(str,total){const indices=[];for(const part of str.split(',')){const p=part.trim();if(p.includes('-')){const[a,b]=p.split('-');for(let i=parseInt(a)-1;i<parseInt(b);i++)if(i>=0&&i<total)indices.push(i)}else if(p&&!isNaN(p)){const i=parseInt(p)-1;if(i>=0&&i<total)indices.push(i)}}return indices}
+async function extractPages(srcDoc,indices){const newDoc=await PDFDocument.create();const pages=await newDoc.copyPages(srcDoc,indices);pages.forEach(p=>newDoc.addPage(p));return await newDoc.save()}
+splitBtn.addEventListener('click',async()=>{
+if(!selectedFile)return;
+splitBtn.classList.add('loading');splitBtn.disabled=true;progressW.classList.add('visible');downloadArea.classList.remove('visible');errorMsg.classList.remove('visible');
+try{
+progressF.style.width='20%';progressS.textContent='Loading PDF...';progressP.textContent='20%';
+const arrayBuffer=await selectedFile.arrayBuffer();
+const srcDoc=await PDFDocument.load(arrayBuffer,{ignoreEncryption:true});
+const total=srcDoc.getPageCount();
+progressF.style.width='50%';progressS.textContent='Splitting...';progressP.textContent='50%';
+let blob,filename;
+if(selectedMethod==='range'){const indices=parseRanges(document.getElementById('range-value').value,total);if(indices.length===0)throw new Error('Invalid page range.');const bytes=await extractPages(srcDoc,indices);blob=new Blob([bytes],{type:'application/pdf'});filename='split.pdf';}
+else if(selectedMethod==='single'){const page=parseInt(document.getElementById('single-value').value)-1;if(page<0||page>=total)throw new Error('Page does not exist.');const bytes=await extractPages(srcDoc,[page]);blob=new Blob([bytes],{type:'application/pdf'});filename='page_'+(page+1)+'.pdf';}
+else if(selectedMethod==='all'){const zip=new JSZip();for(let i=0;i<total;i++){progressF.style.width=(50+((i/total)*40))+'%';progressS.textContent='Extracting page '+(i+1)+' of '+total+'...';progressP.textContent=Math.round(50+((i/total)*40))+'%';const bytes=await extractPages(srcDoc,[i]);zip.file('page_'+(i+1)+'.pdf',bytes)}const zipBytes=await zip.generateAsync({type:'uint8array'});blob=new Blob([zipBytes],{type:'application/zip'});filename='all_pages.zip';}
+else if(selectedMethod==='every'){const n=parseInt(document.getElementById('every-value').value)||2;const zip=new JSZip();let chunk=0;for(let start=0;start<total;start+=n){chunk++;const indices=[];for(let i=start;i<Math.min(start+n,total);i++)indices.push(i);const bytes=await extractPages(srcDoc,indices);zip.file('chunk_'+chunk+'.pdf',bytes)}const zipBytes=await zip.generateAsync({type:'uint8array'});blob=new Blob([zipBytes],{type:'application/zip'});filename='split_chunks.zip';}
+progressF.style.width='100%';progressS.textContent='Done!';progressP.textContent='100%';
+const url=URL.createObjectURL(blob);
+downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=filename;a.click()};
+downloadArea.classList.add('visible');
+}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');progressW.classList.remove('visible')}
+finally{splitBtn.classList.remove('loading');splitBtn.disabled=false}
+});
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
 
 
 
