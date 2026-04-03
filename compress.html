@@ -130,40 +130,46 @@
   </div>
 </section>
 <footer><div>© 2026 EditPDF</div><div><a href="/privacy.html">Privacy Policy</a></div></footer>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script>
-  const dropzone=document.getElementById('dropzone'),fileInput=document.getElementById('file-input'),filePreview=document.getElementById('file-preview'),fileNameEl=document.getElementById('file-name'),fileSizeEl=document.getElementById('file-size'),removeBtn=document.getElementById('remove-btn'),compressBtn=document.getElementById('compress-btn'),progressW=document.getElementById('progress-wrap'),progressF=document.getElementById('progress-fill'),progressS=document.getElementById('progress-status'),progressP=document.getElementById('progress-pct'),errorMsg=document.getElementById('error-msg'),resultArea=document.getElementById('result-area'),downloadBtn=document.getElementById('download-btn');
-  let selectedFile=null,selectedLevel='ebook',downloadUrl=null,origSize=0;
-  function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(2)+' MB'}
-  document.querySelectorAll('.level-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedLevel=btn.dataset.level})});
-  function setFile(file){selectedFile=file;origSize=file.size;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');compressBtn.disabled=false;errorMsg.classList.remove('visible');resultArea.classList.remove('visible');progressW.classList.remove('visible')}
-  function clearFile(){selectedFile=null;fileInput.value='';filePreview.classList.remove('visible');compressBtn.disabled=true;resultArea.classList.remove('visible');progressW.classList.remove('visible');errorMsg.classList.remove('visible')}
-  dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
-  dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
-  dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('drag-over');if(e.dataTransfer.files[0])setFile(e.dataTransfer.files[0])});
-  dropzone.addEventListener('click',()=>fileInput.click());
-  fileInput.addEventListener('change',()=>{if(fileInput.files[0])setFile(fileInput.files[0])});
-  removeBtn.addEventListener('click',e=>{e.stopPropagation();clearFile()});
-  compressBtn.addEventListener('click',async()=>{
-    if(!selectedFile)return;
-    compressBtn.classList.add('loading');compressBtn.disabled=true;progressW.classList.add('visible');resultArea.classList.remove('visible');errorMsg.classList.remove('visible');
-    let prog=0;
-    const ticker=setInterval(()=>{prog=Math.min(prog+Math.random()*15,85);progressF.style.width=prog+'%';progressS.textContent=prog<40?'Uploading...':'Compressing...';progressP.textContent=Math.round(prog)+'%'},300);
-    try{
-      const formData=new FormData();formData.append('file',selectedFile);formData.append('level',selectedLevel);
-      const res=await fetch('/api/compress-pdf',{method:'POST',body:formData});
-      clearInterval(ticker);
-      if(!res.ok){const err=await res.json().catch(()=>({detail:'Server error'}));throw new Error(err.detail||'HTTP '+res.status)}
-      progressF.style.width='100%';progressS.textContent='Done!';progressP.textContent='100%';
-      const blob=await res.blob();const compSize=blob.size;const savedPct=Math.round((1-compSize/origSize)*100);
-      document.getElementById('orig-size').textContent=formatBytes(origSize);document.getElementById('comp-size').textContent=formatBytes(compSize);document.getElementById('saved-pct').textContent=savedPct>0?'-'+savedPct+'%':'Minimal';
-      downloadUrl=URL.createObjectURL(blob);downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=downloadUrl;a.download=selectedFile.name.replace('.pdf','_compressed.pdf');a.click()};
-      resultArea.classList.add('visible');
-    }catch(err){clearInterval(ticker);errorMsg.textContent='⚠ '+(err.message||'Compression failed.');errorMsg.classList.add('visible');progressW.classList.remove('visible')}
-    finally{compressBtn.classList.remove('loading');compressBtn.disabled=false}
-  });
+const {PDFDocument}=PDFLib;
+const dropzone=document.getElementById('dropzone'),fileInput=document.getElementById('file-input'),filePreview=document.getElementById('file-preview'),fileNameEl=document.getElementById('file-name'),fileSizeEl=document.getElementById('file-size'),removeBtn=document.getElementById('remove-btn'),compressBtn=document.getElementById('compress-btn'),progressW=document.getElementById('progress-wrap'),progressF=document.getElementById('progress-fill'),progressS=document.getElementById('progress-status'),progressP=document.getElementById('progress-pct'),errorMsg=document.getElementById('error-msg'),resultArea=document.getElementById('result-area'),downloadBtn=document.getElementById('download-btn');
+let selectedFile=null,origSize=0;
+function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(2)+' MB'}
+function setFile(file){selectedFile=file;origSize=file.size;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');compressBtn.disabled=false;errorMsg.classList.remove('visible');resultArea.classList.remove('visible');progressW.classList.remove('visible')}
+function clearFile(){selectedFile=null;fileInput.value='';filePreview.classList.remove('visible');compressBtn.disabled=true;resultArea.classList.remove('visible');progressW.classList.remove('visible');errorMsg.classList.remove('visible')}
+dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
+dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
+dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('drag-over');if(e.dataTransfer.files[0])setFile(e.dataTransfer.files[0])});
+dropzone.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',()=>{if(fileInput.files[0])setFile(fileInput.files[0])});
+removeBtn.addEventListener('click',e=>{e.stopPropagation();clearFile()});
+compressBtn.addEventListener('click',async()=>{
+if(!selectedFile)return;
+compressBtn.classList.add('loading');compressBtn.disabled=true;progressW.classList.add('visible');resultArea.classList.remove('visible');errorMsg.classList.remove('visible');
+try{
+progressF.style.width='30%';progressS.textContent='Reading PDF...';progressP.textContent='30%';
+const arrayBuffer=await selectedFile.arrayBuffer();
+progressF.style.width='60%';progressS.textContent='Compressing...';progressP.textContent='60%';
+const pdfDoc=await PDFDocument.load(arrayBuffer,{ignoreEncryption:true});
+const compressedBytes=await pdfDoc.save({useObjectStreams:true,addDefaultPage:false,objectsPerTick:50});
+progressF.style.width='100%';progressS.textContent='Done!';progressP.textContent='100%';
+const compSize=compressedBytes.length;
+const savedPct=Math.round((1-compSize/origSize)*100);
+document.getElementById('orig-size').textContent=formatBytes(origSize);
+document.getElementById('comp-size').textContent=formatBytes(compSize);
+document.getElementById('saved-pct').textContent=savedPct>0?'-'+savedPct+'%':'Already optimised';
+const blob=new Blob([compressedBytes],{type:'application/pdf'});
+const url=URL.createObjectURL(blob);
+downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=selectedFile.name.replace('.pdf','_compressed.pdf');a.click()};
+resultArea.classList.add('visible');
+}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');progressW.classList.remove('visible')}
+finally{compressBtn.classList.remove('loading');compressBtn.disabled=false}
+});
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div><div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
 
 
 
