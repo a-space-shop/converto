@@ -243,7 +243,7 @@ const dropzone=document.getElementById('dropzone'),fileInput=document.getElement
 let files=[];
 function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB'}
 function renderFiles(){fileList.innerHTML='';files.forEach((f,i)=>{const item=document.createElement('div');item.className='file-item';item.innerHTML='<div class="file-item-icon">📕</div><div class="file-item-info"><div class="file-item-name">'+f.name+'</div><div class="file-item-size">'+formatBytes(f.size)+'</div></div><div class="file-item-order">#'+(i+1)+'</div><button class="remove-file" data-idx="'+i+'">✕</button>';fileList.appendChild(item)});fileCount.style.display=files.length>0?'block':'none';fileCountNum.textContent=files.length;mergeBtn.disabled=files.length<2;downloadArea.classList.remove('visible');errorMsg.classList.remove('visible')}
-function addFiles(newFiles){for(const f of newFiles){if(f.type==='application/pdf'||f.name.endsWith('.pdf'))files.push(f)}renderFiles()}
+function addFiles(newFiles){for(const f of newFiles){if(f.type==='application/pdf'||f.name.endsWith('.pdf')){if(f.size>100*1024*1024){alert(f.name+" exceeds the 100MB limit.");continue;}files.push(f)}}renderFiles()}
 dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
 dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
 dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('drag-over');addFiles(e.dataTransfer.files)});
@@ -276,6 +276,7 @@ finally{mergeBtn.classList.remove('loading');mergeBtn.disabled=false}
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
 
 
 

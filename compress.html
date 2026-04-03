@@ -128,7 +128,7 @@ const {PDFDocument}=PDFLib;
 const dropzone=document.getElementById('dropzone'),fileInput=document.getElementById('file-input'),filePreview=document.getElementById('file-preview'),fileNameEl=document.getElementById('file-name'),fileSizeEl=document.getElementById('file-size'),removeBtn=document.getElementById('remove-btn'),compressBtn=document.getElementById('compress-btn'),progressW=document.getElementById('progress-wrap'),progressF=document.getElementById('progress-fill'),progressS=document.getElementById('progress-status'),progressP=document.getElementById('progress-pct'),errorMsg=document.getElementById('error-msg'),resultArea=document.getElementById('result-area'),downloadBtn=document.getElementById('download-btn');
 let selectedFile=null,origSize=0;
 function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(2)+' MB'}
-function setFile(file){selectedFile=file;origSize=file.size;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');compressBtn.disabled=false;errorMsg.classList.remove('visible');resultArea.classList.remove('visible');progressW.classList.remove('visible')}
+function setFile(file){if(file.size>100*1024*1024){alert(file.name+" exceeds the 100MB limit.");return;}selectedFile=file;origSize=file.size;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');compressBtn.disabled=false;errorMsg.classList.remove('visible');resultArea.classList.remove('visible');progressW.classList.remove('visible')}
 function clearFile(){selectedFile=null;fileInput.value='';filePreview.classList.remove('visible');compressBtn.disabled=true;resultArea.classList.remove('visible');progressW.classList.remove('visible');errorMsg.classList.remove('visible')}
 dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
 dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
@@ -161,6 +161,7 @@ finally{compressBtn.classList.remove('loading');compressBtn.disabled=false}
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div><div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
 
 
 

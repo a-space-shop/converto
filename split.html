@@ -270,7 +270,7 @@ const dropzone=document.getElementById('dropzone'),fileInput=document.getElement
 let selectedFile=null,selectedMethod='range';
 function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB'}
 document.querySelectorAll('.method-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedMethod=btn.dataset.method;document.querySelectorAll('.input-area').forEach(a=>a.classList.remove('visible'));if(selectedMethod==='range')document.getElementById('input-range').classList.add('visible');if(selectedMethod==='single')document.getElementById('input-single').classList.add('visible');if(selectedMethod==='every')document.getElementById('input-every').classList.add('visible')})});
-function setFile(file){selectedFile=file;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');splitBtn.disabled=false;errorMsg.classList.remove('visible');downloadArea.classList.remove('visible');progressW.classList.remove('visible')}
+function setFile(file){if(file.size>100*1024*1024){alert(file.name+" exceeds the 100MB limit.");return;}selectedFile=file;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');splitBtn.disabled=false;errorMsg.classList.remove('visible');downloadArea.classList.remove('visible');progressW.classList.remove('visible')}
 function clearFile(){selectedFile=null;fileInput.value='';filePreview.classList.remove('visible');splitBtn.disabled=true;downloadArea.classList.remove('visible');progressW.classList.remove('visible');errorMsg.classList.remove('visible')}
 dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
 dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
@@ -304,6 +304,7 @@ finally{splitBtn.classList.remove('loading');splitBtn.disabled=false}
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
 
 
 
