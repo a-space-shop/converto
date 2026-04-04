@@ -163,17 +163,7 @@
 <div class="blob blob1"></div>
 <div class="blob blob2"></div>
 
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
-  <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;color:#e8e8f0;font-size:24px;cursor:pointer;padding:4px;z-index:101;">☰</button>
-  <div id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">editpdf.fyi</div>
-  <div id="nav-links" style="display:flex;gap:32px;align-items:center">
-    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
-    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
-    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Compress PDF</a>
-    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
-  </div>
-  <div style="width:32px;display:none;" id="spacer"></div>
-</nav>
+
 <div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(10,10,15,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d;padding:16px 24px;flex-direction:column;gap:0;">
   <a href="/" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Convert PDF</a>
   <a href="/merge.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Merge PDF</a>
@@ -194,7 +184,7 @@
 <section class="hero">
   <p class="eyebrow">✦ PDF Tool</p>
   <h1>Merge PDFs<br><em>in seconds.</em></h1>
-  <p class="sub">Combine multiple PDF files into one. Drag, reorder, and merge — no sign-up, no watermarks, files deleted after download.</p>
+  <p class="sub">Combine multiple PDF files into one. Drag, reorder, and merge — no sign-up, no watermarks, fully private.</p>
 
   <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(106,247,200,0.08);border:1px solid rgba(106,247,200,0.3);border-radius:100px;padding:10px 24px;margin-bottom:40px;"><span style="font-size:18px;">🔒</span><div style="text-align:left;"><div style="font-size:13px;font-weight:700;color:#6af7c8;">100% private — files never leave your device</div><div style="font-size:11px;color:#6b6b88;">Processed locally in your browser · No uploads · Works offline</div></div></div><div class="tool-card">
     <div class="dropzone" id="dropzone">
@@ -287,6 +277,9 @@ finally{mergeBtn.classList.remove('loading');mergeBtn.disabled=false}
 </script>
 </body>
 </html>
+
+
+
 
 
 
