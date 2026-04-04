@@ -1,6 +1,6 @@
 ﻿<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
   <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;color:#e8e8f0;font-size:24px;cursor:pointer;padding:4px;z-index:101;">☰</button>
-  <div id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">editpdf.fyi</div>
+  <a href="/" id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">editpdf.fyi</a>
   <div id="nav-links" style="display:flex;gap:32px;align-items:center">
     <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
     <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
@@ -18,7 +18,7 @@
 <style>@media(max-width:768px){#nav-links{display:none!important}#hamburger{display:block!important}#spacer{display:block!important}#logo{position:absolute;left:50%;transform:translateX(-50%);}}</style>
 <script>function toggleMenu(){var m=document.getElementById("mobile-menu");m.style.display=m.style.display==="flex"?"none":"flex";}</script><nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
   <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;color:#e8e8f0;font-size:24px;cursor:pointer;padding:4px;z-index:101;">☰</button>
-  <div id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">editpdf.fyi</div>
+  <a href="/" id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">editpdf.fyi</a>
   <div id="nav-links" style="display:flex;gap:32px;align-items:center">
     <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
     <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f76a8c,#f7a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
@@ -213,6 +213,7 @@ finally{compressBtn.classList.remove('loading');compressBtn.disabled=false}
 </script>
 </body>
 </html>
+
 
 
 
