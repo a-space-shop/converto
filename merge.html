@@ -163,16 +163,33 @@
 <div class="blob blob1"></div>
 <div class="blob blob2"></div>
 
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 48px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
-  <div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">editpdf.fyi</div>
-  <div style="display:flex;gap:32px;align-items:center">
-    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Convert PDF</a>
-    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Merge PDF</a>
-    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Compress PDF</a>
-    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Split PDF</a>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
+  <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;color:#e8e8f0;font-size:24px;cursor:pointer;padding:4px;z-index:101;">☰</button>
+  <div id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">editpdf.fyi</div>
+  <div id="nav-links" style="display:flex;gap:32px;align-items:center">
+    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
+    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
+    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Compress PDF</a>
+    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
   </div>
-  <div></div>
+  <div style="width:32px;display:none;" id="spacer"></div>
 </nav>
+<div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(10,10,15,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d;padding:16px 24px;flex-direction:column;gap:0;">
+  <a href="/" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Convert PDF</a>
+  <a href="/merge.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Merge PDF</a>
+  <a href="/compress.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Compress PDF</a>
+  <a href="/split.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
+</div>
+<style>@media(max-width:768px){#nav-links{display:none!important}#hamburger{display:block!important}#spacer{display:block!important}#logo{position:absolute;left:50%;transform:translateX(-50%);}}</style>
+<script>function toggleMenu(){var m=document.getElementById("mobile-menu");m.style.display=m.style.display==="flex"?"none":"flex";}</script>
+<div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(10,10,15,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d;padding:16px 24px;flex-direction:column;gap:0;">
+  <a href="/" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Convert PDF</a>
+  <a href="/merge.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Merge PDF</a>
+  <a href="/compress.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Compress PDF</a>
+  <a href="/split.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#6af7c8,#7c6af7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
+</div>
+<style>@media(max-width:768px){#nav-links{display:none!important}#hamburger{display:block!important}#spacer{display:block!important}#logo{position:absolute;left:50%;transform:translateX(-50%);}}</style>
+<script>function toggleMenu(){var m=document.getElementById("mobile-menu");m.style.display=m.style.display==="flex"?"none":"flex";}</script>
 
 <section class="hero">
   <p class="eyebrow">✦ PDF Tool</p>
@@ -276,6 +293,8 @@ finally{mergeBtn.classList.remove('loading');mergeBtn.disabled=false}
 </script>
 <div style="position:fixed;bottom:20px;right:20px;z-index:100;background:#1a1a26;border:1px solid #6af7c8;border-radius:100px;padding:8px 16px;font-size:11px;color:#6af7c8;font-family:DM Mono,monospace;">🔒 Files never leave your device</div></body>
 </html>
+
+
 
 
 
