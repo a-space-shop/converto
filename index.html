@@ -508,7 +508,7 @@
       .arrow-icon { margin-top: 0; transform: rotate(90deg); align-self: center; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
     }
-  @media(max-width:768px){.nav-links-mobile{display:none!important}nav{padding:16px 20px!important}}</style>
+  @media(max-width:768px){.nav-links-mobile{display:none!important}nav{padding:16px 20px!important;grid-template-columns:1fr!important}}</style>
 </head>
 <body>
 
@@ -518,7 +518,7 @@
 <div class="bg-blob blob3"></div>
 
 <!-- Navbar -->
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d"><style>@media(max-width:768px){.nav-links-mobile{display:none!important}}@media(max-width:768px){.nav-links-mobile{display:none!important}nav{padding:16px 20px!important}}</style>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d"><style>@media(max-width:768px){.nav-links-mobile{display:none!important}}@media(max-width:768px){.nav-links-mobile{display:none!important}nav{padding:16px 20px!important;grid-template-columns:1fr!important}}</style>
   <div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">editpdf.fyi</div>
   <div style="display:flex;gap:32px;align-items:center">
     <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c,#6af7c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block">Convert PDF</a>
@@ -807,6 +807,7 @@
 </script>
 </body>
 </html>
+
 
 
 
