@@ -395,9 +395,14 @@ async def word_to_pdf():
 async def jpg_to_pdf():
     return FileResponse("jpg-to-pdf.html")
 
+@app.get("/sitemap.xml")
+async def sitemap():
+    return FileResponse("sitemap.xml", media_type="application/xml")
+
 # Serve frontend (place index.html in ../frontend/)
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 
 
