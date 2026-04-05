@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="50" fill="#6af77c"/>
+  <path d="M25,22 Q25,18 29,18 L62,18 L78,34 L78,78 Q78,82 74,82 L29,82 Q25,82 25,78 Z" fill="#0a0a0f"/>
+  <path d="M62,18 L62,34 L78,34" fill="none" stroke="#6af77c" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="50" y="58" text-anchor="middle" style="font-size:28px;font-weight:800;font-family:Syne,Arial,sans-serif;fill:#6af77c;">e</text>
+</svg>
