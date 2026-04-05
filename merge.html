@@ -175,6 +175,44 @@
       .tool-card { padding: 24px; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
     }
+
+    /* ── UX ENHANCEMENTS ── */
+
+    /* Page fade-in */
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body { animation: pageFadeIn 0.5s ease forwards; }
+
+    /* Custom thin scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; border-radius: 100px; }
+    ::-webkit-scrollbar-thumb { background: #7c6af7; border-radius: 100px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9b8df9; }
+    * { scrollbar-width: thin; scrollbar-color: #7c6af7 #0a0a0f; }
+
+    /* Enhanced navbar glassmorphism */
+    nav { background: rgba(10,10,15,0.55) !important; backdrop-filter: blur(24px) saturate(180%) !important; -webkit-backdrop-filter: blur(24px) saturate(180%) !important; }
+
+    /* Dropzone pulse animation */
+    @keyframes dropzonePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(124,106,247,0), 0 0 0 0 rgba(124,106,247,0); border-color: #2a2a3d; }
+      50%       { box-shadow: 0 0 28px 10px rgba(124,106,247,0.55), 0 0 60px 20px rgba(124,106,247,0.2); border-color: #7c6af7; }
+    }
+    .dropzone:not(:hover):not(.drag-over) { animation: dropzonePulse 2s ease-in-out infinite; }
+
+    /* Button glow */
+    .merge-btn:hover:not(:disabled) { box-shadow: 0 8px 32px rgba(106,247,200,0.35), 0 0 60px rgba(124,106,247,0.15) !important; }
+
+    /* Button press micro-animation */
+    .merge-btn:active:not(:disabled) { transform: scale(0.97) !important; transition: transform 0.1s ease !important; }
+
+    /* Smooth hover transitions */
+    .tool-link { transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important; }
+    .nav-links a { transition: color 0.25s ease, opacity 0.25s ease; }
+    .remove-file { transition: color 0.2s ease; }
+
+    /* Feature card hover glow */
+    .feat { transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+    .feat:hover { box-shadow: 0 4px 24px rgba(106,247,200,0.15) !important; }
   </style>
 </head>
 <body>

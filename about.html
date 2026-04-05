@@ -23,6 +23,22 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
     @media(max-width:600px){footer{flex-direction:column;gap:8px;text-align:center}}
     @media(max-width:768px){#nav-links{display:none!important}#hamburger{display:block!important}#spacer{display:block!important}#logo{position:absolute;left:50%;transform:translateX(-50%);}}
+
+    /* ── UX ENHANCEMENTS ── */
+
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body { animation: pageFadeIn 0.5s ease forwards; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; border-radius: 100px; }
+    ::-webkit-scrollbar-thumb { background: #7c6af7; border-radius: 100px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9b8df9; }
+    * { scrollbar-width: thin; scrollbar-color: #7c6af7 #0a0a0f; }
+
+    nav { background: rgba(10,10,15,0.55) !important; backdrop-filter: blur(24px) saturate(180%) !important; -webkit-backdrop-filter: blur(24px) saturate(180%) !important; }
+
+    footer a { transition: color 0.2s ease; }
+    footer a:hover { color: var(--text) !important; }
   </style>
 </head>
 <body>

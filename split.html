@@ -155,6 +155,34 @@
       .methods { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
     }
+
+    /* ── UX ENHANCEMENTS ── */
+
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body { animation: pageFadeIn 0.5s ease forwards; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; border-radius: 100px; }
+    ::-webkit-scrollbar-thumb { background: #7c6af7; border-radius: 100px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9b8df9; }
+    * { scrollbar-width: thin; scrollbar-color: #7c6af7 #0a0a0f; }
+
+    nav { background: rgba(10,10,15,0.55) !important; backdrop-filter: blur(24px) saturate(180%) !important; -webkit-backdrop-filter: blur(24px) saturate(180%) !important; }
+
+    @keyframes dropzonePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(124,106,247,0), 0 0 0 0 rgba(124,106,247,0); border-color: #2a2a3d; }
+      50%       { box-shadow: 0 0 28px 10px rgba(124,106,247,0.55), 0 0 60px 20px rgba(124,106,247,0.2); border-color: #7c6af7; }
+    }
+    .dropzone:not(:hover):not(.drag-over) { animation: dropzonePulse 2s ease-in-out infinite; }
+
+    .split-btn:hover:not(:disabled) { box-shadow: 0 8px 32px rgba(106,247,200,0.35), 0 0 60px rgba(106,247,124,0.15) !important; }
+    .split-btn:active:not(:disabled) { transform: scale(0.97) !important; transition: transform 0.1s ease !important; }
+
+    .feat { transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+    .feat:hover { box-shadow: 0 4px 24px rgba(106,247,200,0.15) !important; }
+    .download-btn { transition: opacity 0.2s ease, transform 0.2s ease; }
+    .remove-btn { transition: color 0.2s ease; }
+    .method-btn { transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; }
   </style>
 </head>
 <body>
