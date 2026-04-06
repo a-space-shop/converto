@@ -192,6 +192,11 @@ async def favicon():
     from fastapi.responses import FileResponse
     return FileResponse("favicon.svg", media_type="image/svg+xml")
 
+@app.get("/pdf-to-excel", include_in_schema=False)
+async def pdf_to_excel():
+    from fastapi.responses import FileResponse
+    return FileResponse("pdf-to-excel.html")
+
 @app.get("/health")
 def health(): return {"status": "ok"}
 # Add these routes to your existing main.py
@@ -412,6 +417,7 @@ async def sitemap():
 # Serve frontend (place index.html in ../frontend/)
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 
 
