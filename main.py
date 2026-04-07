@@ -202,6 +202,16 @@ async def convert_page():
     from fastapi.responses import FileResponse
     return FileResponse("convert.html")
 
+@app.get("/favicon-mint.svg", include_in_schema=False)
+async def favicon_mint():
+    from fastapi.responses import FileResponse
+    return FileResponse("favicon-mint.svg", media_type="image/svg+xml")
+
+@app.get("/favicon-mint.svg", include_in_schema=False)
+async def favicon_mint():
+    from fastapi.responses import FileResponse
+    return FileResponse("favicon-mint.svg", media_type="image/svg+xml")
+
 @app.get("/health")
 def health(): return {"status": "ok"}
 # Add these routes to your existing main.py
@@ -422,6 +432,8 @@ async def sitemap():
 # Serve frontend (place index.html in ../frontend/)
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
+
 
 
 
