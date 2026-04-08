@@ -156,11 +156,24 @@ async def convert_file(
             dst_path = convert_pdf_to_image(src_path, dst_path, to_format)
         elif pair == ("pdf", "xlsx"):
             import tabula, openpyxl
-            tables = tabula.read_pdf(str(src_path), pages="all", multiple_tables=True)
-            if not tables:
-                from pdfminer.high_level import extract_text
-                ws = wb.active
-                ws.title = "Content"
+            from pdfminer.high_level import extract_text
+            wb = openpyxl.Workbook()
+            ws = wb.active
+            ws.title = "Content"
+            tables = []
+            try:
+                tables = tabula.read_pdf(str(src_path), pages="all", multiple_tables=True)
+                tables = [t for t in tables if not t.empty]
+            except Exception:
+                tables = []
+            if tables:
+                wb.remove(ws)
+                for i, df in enumerate(tables):
+                    s = wb.create_sheet(title=f"Table_{i+1}")
+                    s.append(list(df.columns))
+                    for row in df.itertuples(index=False):
+                        s.append(list(row))
+            else:
                 try:
                     text = extract_text(str(src_path))
                     for line in text.splitlines():
@@ -168,13 +181,6 @@ async def convert_file(
                             ws.append([line.strip()])
                 except Exception:
                     ws.append(["Could not extract content from this PDF."])
-            wb = openpyxl.Workbook()
-            wb.remove(wb.active)
-            for i, df in enumerate(tables):
-                ws = wb.create_sheet(title=f"Table_{i+1}")
-                ws.append(list(df.columns))
-                for row in df.itertuples(index=False):
-                    ws.append(list(row))
             wb.save(str(dst_path))
         elif from_format in {"docx", "xlsx", "pptx"} and to_format == "pdf":
             dst_path = convert_to_pdf_via_libreoffice(src_path, job_dir)
@@ -431,6 +437,7 @@ def health():
 
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 
 
