@@ -423,3 +423,4 @@ def health():
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
+
