@@ -158,7 +158,16 @@ async def convert_file(
             import tabula, openpyxl
             tables = tabula.read_pdf(str(src_path), pages="all", multiple_tables=True)
             if not tables:
-                raise RuntimeError("No tables found in PDF.")
+                from pdfminer.high_level import extract_text
+                ws = wb.active
+                ws.title = "Content"
+                try:
+                    text = extract_text(str(src_path))
+                    for line in text.splitlines():
+                        if line.strip():
+                            ws.append([line.strip()])
+                except Exception:
+                    ws.append(["Could not extract content from this PDF."])
             wb = openpyxl.Workbook()
             wb.remove(wb.active)
             for i, df in enumerate(tables):
@@ -422,6 +431,7 @@ def health():
 
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 
 
