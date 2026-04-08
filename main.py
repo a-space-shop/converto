@@ -155,7 +155,18 @@ async def convert_file(
         elif pair in {("pdf", "png"), ("pdf", "jpg")}:
             dst_path = convert_pdf_to_image(src_path, dst_path, to_format)
         elif pair == ("pdf", "xlsx"):
-            dst_path = convert_to_pdf_via_libreoffice(src_path, job_dir)
+            import tabula, openpyxl
+            tables = tabula.read_pdf(str(src_path), pages="all", multiple_tables=True)
+            if not tables:
+                raise RuntimeError("No tables found in PDF.")
+            wb = openpyxl.Workbook()
+            wb.remove(wb.active)
+            for i, df in enumerate(tables):
+                ws = wb.create_sheet(title=f"Table_{i+1}")
+                ws.append(list(df.columns))
+                for row in df.itertuples(index=False):
+                    ws.append(list(row))
+            wb.save(str(dst_path))
         elif from_format in {"docx", "xlsx", "pptx"} and to_format == "pdf":
             dst_path = convert_to_pdf_via_libreoffice(src_path, job_dir)
         elif pair == ("html", "pdf"):
@@ -411,3 +422,4 @@ def health():
 
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
