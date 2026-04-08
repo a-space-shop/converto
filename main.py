@@ -212,6 +212,11 @@ async def favicon_mint():
     from fastapi.responses import FileResponse
     return FileResponse("favicon-mint.svg", media_type="image/svg+xml")
 
+@app.get("/ads.txt", include_in_schema=False)
+async def ads_txt():
+    from fastapi.responses import FileResponse
+    return FileResponse("ads.txt", media_type="text/plain")
+
 @app.get("/health")
 def health(): return {"status": "ok"}
 # Add these routes to your existing main.py
@@ -432,6 +437,7 @@ async def sitemap():
 # Serve frontend (place index.html in ../frontend/)
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 
 
