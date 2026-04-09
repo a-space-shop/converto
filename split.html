@@ -315,13 +315,14 @@ else if(selectedMethod==='every'){const n=parseInt(document.getElementById('ever
 progressF.style.width='100%';progressS.textContent='Done!';progressP.textContent='100%';
 const url=URL.createObjectURL(blob);
 downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=filename;a.click()};
-downloadArea.classList.add('visible');
-}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');progressW.classList.remove('visible')}
+downloadArea.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_success',{tool:'split'});;
+}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_failed',{tool:'split'});;progressW.classList.remove('visible')}
 finally{splitBtn.classList.remove('loading');splitBtn.disabled=false}
 });
 </script>
 </body>
 </html>
+
 
 
 

@@ -223,12 +223,13 @@ const blob=new Blob([compressedBytes],{type:'application/pdf'});
 const url=URL.createObjectURL(blob);
 downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=selectedFile.name.replace('.pdf','_compressed.pdf');a.click()};
 resultArea.classList.add('visible');
-}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');progressW.classList.remove('visible')}
+}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_failed',{tool:'compress'});;progressW.classList.remove('visible')}
 finally{compressBtn.classList.remove('loading');compressBtn.disabled=false}
 });
 </script>
 </body>
 </html>
+
 
 
 

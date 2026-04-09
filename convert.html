@@ -769,6 +769,7 @@
 
     try {
       // ⬇️  Replace '/api/convert' with your actual backend endpoint
+      if(typeof gtag!=='undefined')gtag('event','conversion_started',{tool:'convert',from_format:fromFmt,to_format:toFmt});
       const res = await fetch('/api/convert', {
         method: 'POST',
         body: formData
@@ -790,6 +791,7 @@
       downloadBtn.onclick = () => {
         const a = document.createElement('a');
         a.href = downloadUrl; a.download = outName; a.click();
+        if(typeof gtag!=='undefined')gtag('event','conversion_success',{tool:'convert',from_format:fromFmt,to_format:toFmt});
       };
 
       downloadArea.classList.add('visible');
@@ -812,11 +814,13 @@
 
   function showError(msg) {
     errorMsg.textContent = '⚠ ' + msg;
+    if(typeof gtag!=='undefined')gtag('event','conversion_failed',{tool:'convert',error:msg});
     errorMsg.classList.add('visible');
   }
 </script>
 </body>
 </html>
+
 
 
 

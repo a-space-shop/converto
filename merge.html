@@ -304,13 +304,14 @@ const mergedBytes=await mergedPdf.save();
 const blob=new Blob([mergedBytes],{type:'application/pdf'});
 const url=URL.createObjectURL(blob);
 downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download='merged.pdf';a.click()};
-downloadArea.classList.add('visible');
-}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');progressW.classList.remove('visible')}
+downloadArea.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_success',{tool:'merge'});;
+}catch(err){errorMsg.textContent='Failed: '+err.message;errorMsg.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_failed',{tool:'merge'});;progressW.classList.remove('visible')}
 finally{mergeBtn.classList.remove('loading');mergeBtn.disabled=false}
 });
 </script>
 </body>
 </html>
+
 
 
 

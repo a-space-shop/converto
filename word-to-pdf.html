@@ -151,7 +151,7 @@
   const dropzone=document.getElementById('dropzone'),fileInput=document.getElementById('file-input'),filePreview=document.getElementById('file-preview'),fileNameEl=document.getElementById('file-name'),fileSizeEl=document.getElementById('file-size'),removeBtn=document.getElementById('remove-btn'),convertBtn=document.getElementById('convert-btn'),progressW=document.getElementById('progress-wrap'),progressF=document.getElementById('progress-fill'),progressS=document.getElementById('progress-status'),progressP=document.getElementById('progress-pct'),errorMsg=document.getElementById('error-msg'),downloadArea=document.getElementById('download-area'),downloadBtn=document.getElementById('download-btn');
   let selectedFile=null;
   function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(2)+' MB'}
-  function setFile(file){if(file.size>25*1024*1024){errorMsg.textContent='File exceeds 25MB limit.';errorMsg.classList.add('visible');return;}selectedFile=file;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');convertBtn.disabled=false;errorMsg.classList.remove('visible');downloadArea.classList.remove('visible')}
+  function setFile(file){if(file.size>25*1024*1024){errorMsg.textContent='File exceeds 25MB limit.';errorMsg.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_failed',{tool:'word-to-pdf'});;return;}selectedFile=file;fileNameEl.textContent=file.name;fileSizeEl.textContent=formatBytes(file.size);filePreview.classList.add('visible');convertBtn.disabled=false;errorMsg.classList.remove('visible');downloadArea.classList.remove('visible')}
   function clearFile(){selectedFile=null;fileInput.value='';filePreview.classList.remove('visible');convertBtn.disabled=true;downloadArea.classList.remove('visible');errorMsg.classList.remove('visible')}
   dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag-over')});
   dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag-over'));
@@ -171,13 +171,14 @@
       progressF.style.width='100%';progressS.textContent='Done!';progressP.textContent='100%';
       const blob=await res.blob();const url=URL.createObjectURL(blob);
       downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=selectedFile.name.replace(/\.(docx|doc)$/,'.pdf');a.click()};
-      downloadArea.classList.add('visible');
-    }catch(err){clearInterval(ticker);errorMsg.textContent='⚠ '+(err.message||'Conversion failed.');errorMsg.classList.add('visible');progressW.classList.remove('visible')}
+      downloadArea.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_success',{tool:'word-to-pdf'});;
+    }catch(err){clearInterval(ticker);errorMsg.textContent='⚠ '+(err.message||'Conversion failed.');errorMsg.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_failed',{tool:'word-to-pdf'});;progressW.classList.remove('visible')}
     finally{convertBtn.classList.remove('loading');convertBtn.disabled=false}
   });
 </script>
 </body>
 </html>
+
 
 
 
