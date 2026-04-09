@@ -13,7 +13,7 @@ import threading, time
 # ─── Encryption ──────────────────────────────────────────────────────────────
 from cryptography.fernet import Fernet
 
-ENCRYPTION_KEY = Fernet.generate_key()
+ENCRYPTION_KEY = os.environ.get("FERNET_KEY").encode()
 fernet = Fernet(ENCRYPTION_KEY)
 
 def encrypt_file(src: Path) -> Path:
@@ -437,6 +437,7 @@ def health():
 
 if Path("index.html").exists():
     app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 
 
