@@ -172,8 +172,6 @@
       const blob=await res.blob();const url=URL.createObjectURL(blob);
       downloadBtn.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=selectedFile.name.replace(/\.(docx|doc)$/,'.pdf');a.click();document.getElementById('donate-banner').style.display='flex';};
       downloadArea.classList.add('visible')
-    document.getElementById('donate-banner').style.display='flex';; document.getElementById('donate-banner').style.display='flex';;if(typeof gtag!=='undefined')gtag('event','conversion_success',{tool:'word-to-pdf'});;
-    }catch(err){clearInterval(ticker);errorMsg.textContent='⚠ '+(err.message||'Conversion failed.');errorMsg.classList.add('visible');if(typeof gtag!=='undefined')gtag('event','conversion_failed',{tool:'word-to-pdf'});;progressW.classList.remove('visible')}
     finally{convertBtn.classList.remove('loading');convertBtn.disabled=false}
   });
 </script>
