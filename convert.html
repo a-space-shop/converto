@@ -518,10 +518,11 @@
 <div class="bg-blob blob3"></div>
 
 <!-- Navbar -->
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;position:relative;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d">
   <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;color:#e8e8f0;font-size:24px;cursor:pointer;padding:4px;z-index:101;">☰</button>
   <a href="/" id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">editpdf.fyi</a>
-  <div id="nav-links" style="display:flex;gap:32px;align-items:center">
+  <div style="min-width:120px;display:flex;justify-content:flex-end;"><a href="https://paypal.me/editpdffyi" target="_blank" style="background:linear-gradient(135deg,#7c6af7,#f76a8c);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:Syne,sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;">&#9829;&nbsp;Donate</a></div>
+  <div id="nav-links" style="display:flex;gap:32px;align-items:center;position:absolute;left:50%;transform:translateX(-50%);">
     <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
     <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
     <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Compress PDF</a>
