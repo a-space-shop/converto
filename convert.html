@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-CJ40EYYVEC"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "G-CJ40EYYVEC");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5112395939470933" crossorigin="anonymous"></script><link rel="icon" type="image/x-icon" href="/favicon-purple.svg"/><link rel="icon" type="image/svg+xml" href="/favicon-purple.svg"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><meta name="google-site-verification" content="XsTSjHM8hXSuyO9VL8rglzO543OVJk7V7ms3v7CEOHY" />
-  <link rel="icon" type="image/x-icon" href="/favicon-purple.svg"/><link rel="icon" type="image/svg+xml" href="/favicon-purple.svg"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><meta name="google-site-verification" content="W9ncBgeK0uVCOizMQI8ZlomkgFrAWiWlfJNonme7-Qs" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Free PDF tools online — convert, merge, split and compress PDF files instantly. No sign-up required. Files deleted automatically."/>
   <title>Free PDF Tools Online — Convert, Merge, Split & Compress PDF | EditPDF</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -25,6 +25,7 @@
 
     html { scroll-behavior: smooth; }
 
+    html { scrollbar-gutter: stable; }
     body {
       background: var(--bg);
       color: var(--text);
@@ -508,7 +509,11 @@
       .arrow-icon { margin-top: 0; transform: rotate(90deg); align-self: center; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
     }
-  @media(max-width:768px){.nav-links-mobile{display:none!important;visibility:hidden!important;width:0!important;overflow:hidden!important}nav{padding:16px 20px!important}}#donate-nav{min-width:120px;display:flex;justify-content:flex-end;}@media(max-width:768px){#donate-nav{display:none!important}}</style>
+  @media(max-width:768px){.nav-links-mobile{display:none!important;visibility:hidden!important;width:0!important;overflow:hidden!important}nav{padding:16px 20px!important}}#donate-nav{min-width:120px;display:flex;justify-content:flex-end;}@media(max-width:768px){#donate-nav{display:none!important}}
+/* ── Falling PDF particles ── */
+@keyframes fallPdf{0%{opacity:.95;transform:translateY(0) rotate(var(--pdf-r)) scale(1)}100%{opacity:0;transform:translateY(58px) rotate(calc(var(--pdf-r) + 22deg)) scale(.55)}}
+.pdf-fall{position:fixed;pointer-events:none;z-index:99999;animation:fallPdf .75s ease-in forwards}
+</style>
 </head>
 <body>
 
@@ -523,22 +528,39 @@
   <a href="/" id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">editpdf.fyi</a>
   <div id="donate-nav"><a href="https://paypal.me/editpdffyi" target="_blank" style="background:linear-gradient(135deg,#7c6af7,#f76a8c);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:Syne,sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;">&#9829;&nbsp;Donate</a></div>
   <div id="nav-links" style="display:flex;gap:32px;align-items:center;position:absolute;left:50%;transform:translateX(-50%);">
-    <a href="/" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
-    <a href="/merge.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
-    <a href="/compress.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Compress PDF</a>
-    <a href="/split.html" style="font-size:14px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
+  <a href="/edit.html" onmouseenter="spawnFallingPDFs(this,'#7c6af7')" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Edit PDF</a>
+    <a href="/merge.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
+    <a href="/compress.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Compress PDF</a>
+    <a href="/split.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
+    <a href="/convert.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
   </div>
   <div style="width:32px;display:none;" id="spacer"></div>
 </nav>
 <div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(10,10,15,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #2a2a3d;padding:16px 24px;flex-direction:column;gap:0;">
-  <a href="/" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Convert PDF</a>
-  <a href="/merge.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Merge PDF</a>
-  <a href="/compress.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Compress PDF</a>
-  <a href="/split.html" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
+  <a href="/edit.html" onmouseenter="spawnFallingPDFs(this,'#7c6af7')" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Edit PDF</a>
+  <a href="/merge.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Merge PDF</a>
+  <a href="/compress.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Compress PDF</a>
+  <a href="/split.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Split PDF</a>
+  <a href="/convert.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#7c6af7,#f76a8c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Convert PDF</a>
 
-  <a href="https://paypal.me/editpdffyi" target="_blank" style="display:block;padding:14px 0;font-size:15px;font-weight:500;text-decoration:none;color:#fff;border-top:1px solid #2a2a3d;margin-top:8px;text-align:center;">&#9829;&nbsp;Donate</a>
+  <a href="https://paypal.me/editpdffyi" target="_blank" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;color:#fff;text-align:center;">&#9829;&nbsp;Donate</a>
 </div>
 <style>@media(max-width:768px){#nav-links{display:none!important}#hamburger{display:block!important}#spacer{display:block!important}#logo{position:absolute;left:50%;transform:translateX(-50%);}}</style>
+<script>
+function spawnFallingPDFs(el,c){
+  var r=el.getBoundingClientRect();
+  for(var i=0;i<7;i++){(function(i){
+    setTimeout(function(){
+      var d=document.createElement('div'),ang=(Math.random()-.5)*34;
+      d.className='pdf-fall';
+      d.style.cssText='--pdf-r:'+ang+'deg;left:'+(r.left+r.width*(.05+.9*Math.random()))+'px;top:'+(r.bottom+3)+'px;';
+      d.innerHTML='<svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.8 0.5h6.2l3 3v9.8a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.2a.7.7 0 0 1 .8-.7z" stroke="'+c+'" stroke-width="1.1"/><polyline points="8,0.5 8,3.5 11,3.5" stroke="'+c+'" stroke-width="1.1"/><rect x="1.8" y="5.5" width="8.4" height="5" rx="0.6" fill="'+c+'" opacity="0.92"/><text x="6" y="9.5" text-anchor="middle" style="font-size:3.4px;font-weight:800;fill:#0a0a0f;font-family:Arial,sans-serif">PDF</text></svg>';
+      document.body.appendChild(d);
+      setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},850);
+    },i*70);
+  })(i);}
+}
+</script>
 <script>function toggleMenu(){var m=document.getElementById("mobile-menu");m.style.display=m.style.display==="flex"?"none":"flex";}</script>
 <script>if(window.innerWidth<=768)document.getElementById("nav-links").style.display="none";</script>
 
@@ -675,7 +697,7 @@
 </section>
 
 <!-- Footer -->
-<section style="position:relative;z-index:1;max-width:700px;margin:40px auto;padding:0 24px"><p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#6b6b88;margin-bottom:16px;text-align:center;">More tools</p><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"><a href="/merge.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128206; Merge PDF</a><a href="/compress.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128292; Compress PDF</a><a href="/split.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#9986;&#65039; Split PDF</a><a href="/pdf-to-word" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128196; PDF to Word</a><a href="/word-to-pdf" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128196; Word to PDF</a><a href="/pdf-to-excel" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128202; PDF to Excel</a><a href="/jpg-to-pdf" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128247; JPG to PDF</a></div></section><footer style="position:relative;z-index:1;border-top:1px solid #2a2a3d;padding:24px 48px;display:flex;justify-content:center;align-items:center;gap:32px;font-size:12px;color:#6b6b88;">
+<section style="position:relative;z-index:1;max-width:700px;margin:40px auto;padding:0 24px"><p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#6b6b88;margin-bottom:16px;text-align:center;">More tools</p><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"><a href="/merge.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128206; Merge PDF</a><a href="/compress.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128292; Compress PDF</a><a href="/split.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#9986;&#65039; Split PDF</a><a href="/pdf-to-word.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128196; PDF to Word</a><a href="/word-to-pdf.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128196; Word to PDF</a><a href="/pdf-to-excel.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128202; PDF to Excel</a><a href="/jpg-to-pdf.html" style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:14px 16px;text-decoration:none;color:#e8e8f0;display:flex;align-items:center;gap:10px;font-size:13px;">&#128247; JPG to PDF</a></div></section><footer style="position:relative;z-index:1;border-top:1px solid #2a2a3d;padding:24px 48px;display:flex;justify-content:center;align-items:center;gap:32px;font-size:12px;color:#6b6b88;">
   <div>© 2026 EditPDF</div>
   <div><a href="/privacy.html" style="color:#6b6b88;text-decoration:none;">Privacy Policy</a><span style="color:#2a2a3d;">|</span><a href="/about.html" style="color:#6b6b88;text-decoration:none;">About</a></div>
 </footer>

@@ -1,11 +1,11 @@
 ﻿more_tools = """<div class="other-tools">
     <p>More PDF tools</p>
     <div class="tools-row">
-      <a href="/pdf-to-word" class="tool-link">&#128196; PDF to Word</a>
+      <a href="/pdf-to-word.html" class="tool-link">&#128196; PDF to Word</a>
       <a href="/merge.html" class="tool-link">&#128206; Merge PDF</a>
       <a href="/compress.html" class="tool-link">&#128220; Compress PDF</a>
       <a href="/split.html" class="tool-link">&#9986;&#65039; Split PDF</a>
-      <a href="/jpg-to-pdf" class="tool-link">&#128444;&#65039; JPG to PDF</a>
+      <a href="/jpg-to-pdf.html" class="tool-link">&#128444;&#65039; JPG to PDF</a>
     </div>
   </div>"""
 

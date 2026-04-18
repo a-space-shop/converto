@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://editpdf.fyi/</loc><priority>1.0</priority></url>
+  <url><loc>https://editpdf.fyi/edit.html</loc><priority>0.9</priority></url>
+  <url><loc>https://editpdf.fyi/convert.html</loc><priority>0.9</priority></url>
   <url><loc>https://editpdf.fyi/merge.html</loc><priority>0.9</priority></url>
   <url><loc>https://editpdf.fyi/compress.html</loc><priority>0.9</priority></url>
   <url><loc>https://editpdf.fyi/split.html</loc><priority>0.9</priority></url>
@@ -8,6 +10,7 @@
   <url><loc>https://editpdf.fyi/word-to-pdf</loc><priority>0.9</priority></url>
   <url><loc>https://editpdf.fyi/jpg-to-pdf</loc><priority>0.9</priority></url>
   <url><loc>https://editpdf.fyi/pdf-to-excel</loc><priority>0.9</priority></url>
+  <url><loc>https://editpdf.fyi/about.html</loc><priority>0.7</priority></url>
   <url><loc>https://editpdf.fyi/privacy.html</loc><priority>0.5</priority></url>
 </urlset>
 

@@ -13,7 +13,10 @@ import threading, time
 # ─── Encryption ──────────────────────────────────────────────────────────────
 from cryptography.fernet import Fernet
 
-ENCRYPTION_KEY = os.environ.get("FERNET_KEY").encode()
+_fernet_key = os.environ.get("FERNET_KEY")
+if not _fernet_key:
+    _fernet_key = Fernet.generate_key().decode()
+ENCRYPTION_KEY = _fernet_key.encode()
 fernet = Fernet(ENCRYPTION_KEY)
 
 def encrypt_file(src: Path) -> Path:
