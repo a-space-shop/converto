@@ -1,121 +1,116 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Edit PDF files online for free. Add text, highlights, drawings, signatures and annotations to any PDF directly in your browser. No signup needed.">
+<link rel="icon" type="image/svg+xml" href="/favicon-mint.svg">
 <link rel="canonical" href="https://editpdf.fyi/edit.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EditPDF">
+<meta property="og:url" content="https://editpdf.fyi/edit.html">
+<meta property="og:title" content="Edit PDF Online — Annotate, Sign &amp; Draw | EditPDF">
+<meta property="og:description" content="Add text, highlights, drawings and signatures to any PDF in your browser. Your file never leaves your device. No software needed.">
+<meta property="og:image" content="https://editpdf.fyi/favicon-mint.svg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Edit PDF Online — Annotate, Sign &amp; Draw | EditPDF">
+<meta name="twitter:description" content="Add text, highlights, drawings and signatures to any PDF in your browser. Your file never leaves your device. No software needed.">
+<meta name="twitter:image" content="https://editpdf.fyi/favicon-mint.svg">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJ40EYYVEC"></script>
 <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "G-CJ40EYYVEC");</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5112395939470933" crossorigin="anonymous"></script>
 <title>Edit PDF Online Free — Annotate, Sign & Draw | EditPDF</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=La+Belle+Aurore&family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@400;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=La+Belle+Aurore&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/design-system.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0a0a0f;--surface:#12121a;--card:#1a1a26;--border:#2a2a3d;
-  --accent:#60efff;--accent2:#3b82f6;--accent3:#60efff;
-  --text:#e8e8f0;--muted:#6b6b88;
-}
-html{height:100%;overflow-y:auto;scrollbar-gutter:stable;background-color:var(--bg)}body{height:100%;overflow:hidden;background-color:var(--bg)}
-body{background:radial-gradient(circle at 50% -20%, rgba(96,239,255,0.1), var(--bg) 60%);color:var(--text);font-family:'DM Mono',monospace;display:flex;flex-direction:column}
+html{height:100%}
+body{min-height:100%;overflow-y:auto;scrollbar-gutter:stable;background:#fff;color:#0F172A;font-family:'Inter',system-ui,sans-serif;display:flex;flex-direction:column}
 
-/* ─── NAVBAR ─── */
-.navbar{background:rgba(18,18,26,0.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:8px 20px;display:flex;align-items:center;gap:14px;flex-shrink:0;z-index:10;box-shadow:0 4px 30px rgba(0,0,0,0.5)}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.02em;text-shadow:0 0 20px rgba(96,239,255,0.4)}
-.navbar-sep{flex:1}
-.icon-group{display:flex;gap:4px;background:rgba(26,26,38,0.5);border:1px solid var(--border);border-radius:10px;padding:4px}
-.icon-btn{background:rgba(96,239,255,0.05);border:1px solid rgba(96,239,255,0.15);color:var(--accent);cursor:pointer;padding:6px 12px;border-radius:8px;font-size:13px;font-family:'DM Mono',monospace;transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);line-height:1;display:flex;align-items:center;gap:6px}
-.icon-btn:hover:not(:disabled){background:rgba(96,239,255,0.15);border-color:var(--accent);color:var(--accent);transform:scale(1.05);box-shadow:0 0 10px rgba(96,239,255,0.2)}
-.icon-btn:active:not(:disabled){transform:scale(0.95)}
-.icon-btn:disabled{opacity:.3;cursor:not-allowed}
-.btn{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;padding:8px 18px;border:none;border-radius:10px;cursor:pointer;transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);letter-spacing:.02em;display:flex;align-items:center;justify-content:center}
-.btn-outline{background:rgba(26,26,38,0.5);color:var(--text);border:1px solid var(--border);backdrop-filter:blur(8px)}
-.btn-outline:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 15px rgba(96,239,255,0.15);transform:translateY(-1px)}
-.btn-outline:active{transform:scale(0.97)}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 15px rgba(96,239,255,0.3)}
-.btn-primary:hover{opacity:1;box-shadow:0 6px 20px rgba(59,130,246,0.4);transform:translateY(-1px) scale(1.02)}
-.btn-primary:active{transform:translateY(0) scale(0.98);box-shadow:0 2px 10px rgba(96,239,255,0.3)}
+/* ─── EDITOR TOOLBAR BUTTONS ─── */
+.icon-group{display:flex;gap:4px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:4px}
+.icon-btn{background:#fff;border:1px solid #E2E8F0;color:#475569;cursor:pointer;padding:6px 12px;border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;transition:all .15s;line-height:1;display:flex;align-items:center;gap:6px}
+.icon-btn:hover:not(:disabled){background:rgba(26,86,219,0.08);border-color:#1A56DB;color:#1A56DB}
+.icon-btn:active:not(:disabled){transform:scale(0.96)}
+.icon-btn:disabled{opacity:.35;cursor:not-allowed}
+.btn{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;padding:8px 18px;border:none;border-radius:8px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.btn-outline{background:#fff;color:#0F172A;border:1.5px solid #E2E8F0}
+.btn-outline:hover{border-color:#1A56DB;color:#1A56DB}
+.btn-primary{background:#1A56DB;color:#fff;box-shadow:0 2px 8px rgba(26,86,219,0.25);width:auto;padding:8px 18px;}
+.btn-primary:hover{background:#1340A8;transform:translateY(-1px)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}
 
 /* ─── LAYOUT ─── */
 .main{display:flex;flex:1;overflow:hidden;position:relative}
 
-/* ─── TOOLBAR (Floating) ─── */
-.toolbar{width:64px;background:rgba(26,26,38,0.65);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:8px;flex-shrink:0;margin:12px 12px 12px 12px;box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:10;animation:slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1)}
-@keyframes slideInLeft { from { transform: translateX(-40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-.tool-btn{width:40px;height:40px;border-radius:12px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);position:relative}
-.tool-btn svg{pointer-events:none;transition:transform 0.2s}
-.tool-btn:hover{background:rgba(255,255,255,0.05);color:var(--text);border-color:var(--border)}
-.tool-btn:hover svg{transform:scale(1.1)}
+/* ─── FLOATING TOOLBAR ─── */
+.toolbar{width:64px;background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:8px;flex-shrink:0;margin:12px;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:10;animation:slideInLeft 0.4s cubic-bezier(0.16,1,0.3,1)}
+@keyframes slideInLeft{from{transform:translateX(-40px);opacity:0}to{transform:translateX(0);opacity:1}}
+.tool-btn{width:40px;height:40px;border-radius:10px;border:1px solid transparent;background:transparent;color:#94A3B8;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;position:relative}
+.tool-btn svg{pointer-events:none;transition:transform 0.15s}
+.tool-btn:hover{background:rgba(26,86,219,0.08);color:#1A56DB;border-color:rgba(26,86,219,0.15)}
+.tool-btn:hover svg{transform:scale(1.08)}
 .tool-btn:active{transform:scale(0.92)}
-.tool-btn.active{background:linear-gradient(135deg,rgba(96,239,255,.25),rgba(59,130,246,.25));border-color:var(--accent);color:var(--text);box-shadow:inset 0 0 0 1px rgba(96,239,255,0.3), 0 0 15px rgba(59,130,246,0.15)}
-.tool-btn.active svg{color:var(--accent2);filter:drop-shadow(0 0 4px rgba(59,130,246,0.6))}
-.tool-tip{position:absolute;left:56px;top:50%;transform:translateY(-50%) translateX(-10px);background:rgba(18,18,26,0.9);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:6px 10px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);z-index:200;box-shadow:0 4px 15px rgba(0,0,0,0.4)}
+.tool-btn.active{background:rgba(26,86,219,0.10);border-color:rgba(26,86,219,0.2);color:#1A56DB}
+.tool-tip{position:absolute;left:52px;top:50%;transform:translateY(-50%) translateX(-8px);background:#0F172A;color:#fff;font-family:'Inter',sans-serif;font-size:11px;padding:5px 9px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:all .15s;z-index:200}
 .tool-btn:hover .tool-tip{opacity:1;transform:translateY(-50%) translateX(0)}
-.tool-hr{width:28px;height:1px;background:var(--border);margin:4px 0}
+.tool-hr{width:28px;height:1px;background:#E2E8F0;margin:4px 0}
 
 /* ─── OPTIONS PANEL ─── */
-.options-panel{width:220px;background:rgba(26,26,38,0.4);backdrop-filter:blur(10px);border-radius:16px;border:1px solid var(--border);padding:20px;flex-shrink:0;overflow-y:auto;display:none;margin:16px 16px 16px 0;box-shadow:0 8px 32px rgba(0,0,0,0.3);animation:slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1)}
+.options-panel{width:220px;background:#fff;border-radius:16px;border:1.5px solid #E2E8F0;padding:20px;flex-shrink:0;overflow-y:auto;display:none;margin:12px 12px 12px 0;box-shadow:0 4px 16px rgba(0,0,0,0.08);animation:slideInLeft 0.3s cubic-bezier(0.16,1,0.3,1)}
 .options-panel.open{display:block}
-.opt-title{font-family:'Syne',sans-serif;font-size:15px;color:var(--text);margin-bottom:18px;letter-spacing:.02em;text-shadow:0 0 10px rgba(255,255,255,0.1)}
-.opt-section{display:none;animation:fadeIn 0.3s ease}
-@keyframes fadeIn { from { opacity: 0; transform:translateY(5px) } to { opacity: 1; transform:translateY(0) } }
+.opt-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:#0F172A;margin-bottom:16px}
+.opt-section{display:none;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .opt-section.vis{display:block}
-.opt-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;font-weight:500}
-.opt-group{margin-bottom:20px;background:rgba(0,0,0,0.15);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-.swatches{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
-.swatch{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:0 2px 5px rgba(0,0,0,0.5)}
-.swatch:hover{transform:scale(1.15);box-shadow:0 4px 10px rgba(0,0,0,0.6)}
-.swatch.on{border-color:#fff;transform:scale(1.2);box-shadow:0 0 10px var(--accent)}
+.opt-label{font-size:11px;color:#94A3B8;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-weight:600}
+.opt-group{margin-bottom:16px;background:#F8FAFC;padding:12px;border-radius:10px;border:1px solid #E2E8F0}
+.swatches{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px}
+.swatch{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.swatch:hover{transform:scale(1.15)}
+.swatch.on{border-color:#1A56DB;transform:scale(1.2);box-shadow:0 0 0 2px rgba(26,86,219,0.2)}
 
-/* Custom Range Input */
-input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;outline:none;margin:10px 0}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 10px rgba(96,239,255,0.6);border:2px solid #fff;transition:transform 0.1s}
+/* Range inputs */
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:#E2E8F0;border-radius:2px;outline:none;margin:10px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#1A56DB;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.15);transition:transform .1s}
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
-input[type=range]::-webkit-slider-thumb:active{transform:scale(0.9)}
-.range-val{font-size:12px;color:var(--accent3);margin-top:2px;text-align:right;font-weight:500}
-.opt-note{font-size:12px;color:var(--muted);line-height:1.6;background:rgba(59,130,246,0.05);padding:10px;border-radius:8px;border-left:3px solid var(--accent2)}
+.range-val{font-size:12px;color:#1A56DB;margin-top:2px;text-align:right;font-weight:500}
+.opt-note{font-size:12px;color:#475569;line-height:1.6;background:rgba(26,86,219,0.06);padding:10px;border-radius:8px;border-left:3px solid #1A56DB}
 .font-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
-.font-btn{background:rgba(26,26,38,0.6);border:1px solid var(--border);color:var(--text);padding:7px 8px;border-radius:8px;cursor:pointer;font-size:13px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all .2s;line-height:1.2}
-.font-btn:hover{border-color:var(--accent);background:rgba(96,239,255,0.08);color:var(--accent)}
-.font-btn.active{background:rgba(96,239,255,0.15);border-color:var(--accent);color:var(--accent);box-shadow:inset 0 0 0 1px rgba(96,239,255,0.25)}
+.font-btn{background:#fff;border:1.5px solid #E2E8F0;color:#0F172A;padding:7px 8px;border-radius:8px;cursor:pointer;font-size:13px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all .15s;line-height:1.2}
+.font-btn:hover{border-color:#1A56DB;color:#1A56DB}
+.font-btn.active{background:rgba(26,86,219,0.08);border-color:#1A56DB;color:#1A56DB}
 
 /* ─── CANVAS AREA ─── */
-.canvas-area{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:12px 20px;gap:16px;position:relative}
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:rgba(0,0,0,0.1);border-radius:4px}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;border:2px solid var(--surface)}
-::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+.canvas-area{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:40px 20px 32px;gap:16px;position:relative;background:#F1F5F9}
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#CBD5E1}
 
 /* drop zone */
-.drop-zone{flex:1;min-height:350px;width:100%;max-width:700px;border:2px dashed rgba(96,239,255,0.4);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;padding:40px;text-align:center;gap:16px;background:rgba(26,26,38,0.3);backdrop-filter:blur(5px);position:relative;overflow:hidden;margin-top:8px}
-.drop-zone::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg, rgba(96,239,255,0.05), rgba(59,130,246,0.05));opacity:0;transition:opacity 0.3s}
-.drop-zone:hover{border-color:var(--accent2);transform:translateY(-2px);box-shadow:0 10px 40px rgba(0,0,0,0.3), 0 0 20px rgba(96,239,255,0.15)}
-.drop-zone:hover::before{opacity:1}
-.drop-zone.drag-over{border-color:var(--accent3);background:rgba(96,239,255,.08);transform:scale(1.02)}
-.drop-icon{color:var(--accent);opacity:.9;transition:transform 0.3s;filter:drop-shadow(0 0 10px rgba(96,239,255,0.5))}
-.drop-zone:hover .drop-icon{transform:translateY(-5px) scale(1.1);color:var(--accent2)}
-.drop-zone h2{font-family:'Syne',sans-serif;font-size:24px;color:var(--text);letter-spacing:0.02em;position:relative}
-.drop-zone p{color:var(--muted);font-size:13px;line-height:1.8;position:relative}
-.drop-zone kbd{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--accent3);box-shadow:0 2px 5px rgba(0,0,0,0.2)}
+.drop-zone{flex:none;height:340px;width:100%;max-width:600px;border:2px dashed #CBD5E1;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;padding:32px 40px;text-align:center;gap:12px;background:#fff}
+.drop-zone:hover{border-color:#1A56DB;background:rgba(26,86,219,0.04);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,219,0.10)}
+.drop-zone.drag-over{border-color:#1A56DB;background:rgba(26,86,219,0.06)}
+.drop-icon{color:#1A56DB;opacity:.8;transition:transform 0.2s}
+.drop-zone:hover .drop-icon{transform:translateY(-4px) scale(1.08)}
+.drop-zone h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.4px}
+.drop-zone p{color:#94A3B8;font-size:13px;line-height:1.8}
+.drop-zone kbd{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:5px;padding:2px 7px;font-size:11px;color:#475569;box-shadow:0 1px 2px rgba(0,0,0,0.06)}
 
 /* pdf viewer */
-.pdf-viewer{display:none;flex-direction:column;align-items:center;gap:20px;width:100%;animation:slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)}
-@keyframes slideUp { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-.page-wrap{position:relative;box-shadow:0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,0.05);border-radius:8px;overflow:hidden;flex-shrink:0;transition:box-shadow 0.3s}
-.page-wrap:hover{box-shadow:0 25px 70px rgba(0,0,0,.8), 0 0 0 1px rgba(96,239,255,0.3)}
+.pdf-viewer{display:none;flex-direction:column;align-items:center;gap:20px;width:100%;animation:slideUp 0.5s cubic-bezier(0.16,1,0.3,1)}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.page-wrap{position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.12),0 0 0 1px rgba(0,0,0,0.06);border-radius:6px;overflow:hidden;flex-shrink:0}
 #pdf-canvas{display:block}
 #overlay-canvas{position:absolute;top:0;left:0;cursor:crosshair;touch-action:none}
-#text-inp{position:absolute;display:none;background:rgba(10,10,15,0.8);backdrop-filter:blur(4px);border:1px solid rgba(96,239,255,0.5);border-radius:6px;padding:6px 10px;color:var(--text);font-family:'DM Mono',monospace;outline:none;resize:both;z-index:10;min-width:120px;line-height:1.45;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(96,239,255,0.2);transition:border-color 0.2s}
-#text-inp:focus{border-color:var(--accent2);box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(59,130,246,0.3)}
-.page-loading{position:absolute;inset:0;background:rgba(10,10,15,.75);display:none;align-items:center;justify-content:center;z-index:20;backdrop-filter:blur(8px)}
+#text-inp{position:absolute;display:none;background:#fff;border:1.5px solid #1A56DB;border-radius:6px;padding:6px 10px;color:#0F172A;font-family:'Inter',sans-serif;outline:none;resize:both;z-index:10;min-width:120px;line-height:1.45;overflow:auto;box-shadow:0 4px 16px rgba(26,86,219,0.12)}
+.page-loading{position:absolute;inset:0;background:rgba(255,255,255,0.85);display:none;align-items:center;justify-content:center;z-index:20}
 
-/* ── selection overlay — position:fixed escapes page-wrap's overflow:hidden ── */
-#sel-box{position:fixed;display:none;border:2px dashed rgba(96,239,255,0.8);pointer-events:none;z-index:9999;box-sizing:border-box;box-shadow:0 0 10px rgba(96,239,255,0.2);border-radius:2px}
-/* Sleek circular resize handles */
-.sel-h{position:absolute;width:14px;height:14px;background:var(--card);border:2px solid var(--accent);border-radius:50%;pointer-events:auto;box-sizing:border-box;transform:translate(-50%,-50%);box-shadow:0 2px 5px rgba(0,0,0,0.5);transition:transform 0.1s, background 0.1s}
-.sel-h:hover{transform:translate(-50%,-50%) scale(1.3);background:var(--accent)}
+/* ── selection overlay ── */
+#sel-box{position:fixed;display:none;border:2px dashed #1A56DB;pointer-events:none;z-index:9999;box-sizing:border-box;border-radius:2px}
+.sel-h{position:absolute;width:12px;height:12px;background:#fff;border:2px solid #1A56DB;border-radius:50%;pointer-events:auto;box-sizing:border-box;transform:translate(-50%,-50%);box-shadow:0 1px 3px rgba(0,0,0,0.15);transition:transform .1s}
+.sel-h:hover{transform:translate(-50%,-50%) scale(1.3);background:#1A56DB}
 .sel-h[data-dir=nw]{top:0;left:0;cursor:nw-resize}
 .sel-h[data-dir=n] {top:0;left:50%;cursor:n-resize}
 .sel-h[data-dir=ne]{top:0;left:100%;cursor:ne-resize}
@@ -125,74 +120,130 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(0.9)}
 .sel-h[data-dir=sw]{top:100%;left:0;cursor:sw-resize}
 .sel-h[data-dir=w] {top:50%;left:0;cursor:w-resize}
 
-.spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,0.1);border-top-color:var(--accent);border-radius:50%;animation:spin .8s cubic-bezier(0.4, 0, 0.2, 1) infinite;box-shadow:0 0 15px rgba(96,239,255,0.4)}
+.spinner{width:36px;height:36px;border:3px solid #E2E8F0;border-top-color:#1A56DB;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* page nav */
-.page-nav{background:rgba(26,26,38,0.7);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:12px;padding:8px 16px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text);flex-shrink:0;flex-wrap:wrap;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
-.nav-btn{background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);color:var(--text);border-radius:8px;padding:5px 12px;cursor:pointer;font-family:'DM Mono',monospace;font-size:12px;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.nav-btn:hover:not(:disabled){border-color:var(--accent);background:rgba(96,239,255,0.1);color:var(--accent);transform:translateY(-1px)}
-.nav-btn:active:not(:disabled){transform:translateY(0) scale(0.95)}
-.nav-btn:disabled{opacity:.3;cursor:not-allowed}
-.nav-sep{width:1px;height:18px;background:var(--border);margin:0 4px}
-#page-info, #zoom-lbl {font-weight: 500; letter-spacing: 0.05em;}
+.page-nav{background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:8px 16px;display:flex;align-items:center;gap:12px;font-size:13px;color:#0F172A;flex-shrink:0;flex-wrap:wrap;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.nav-btn{background:#F8FAFC;border:1px solid #E2E8F0;color:#475569;border-radius:7px;padding:5px 12px;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.nav-btn:hover:not(:disabled){border-color:#1A56DB;background:rgba(26,86,219,0.06);color:#1A56DB}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.nav-sep{width:1px;height:18px;background:#E2E8F0;margin:0 4px}
+#page-info,#zoom-lbl{font-weight:600;font-size:12px;color:#475569}
 
 /* status bar */
-.statusbar{background:rgba(18,18,26,0.8);backdrop-filter:blur(8px);border-top:1px solid var(--border);padding:6px 24px;font-size:11px;color:var(--muted);display:flex;gap:20px;flex-shrink:0;align-items:center;letter-spacing:0.02em}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--accent3);display:inline-block;margin-right:6px;animation:pulse 2s ease-in-out infinite;box-shadow:0 0 8px var(--accent3)}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(0.8)}}
-#hint{margin-left:auto;font-style:italic;color:#9ca3af}
+.statusbar{background:#F8FAFC;border-top:1px solid #E2E8F0;padding:6px 24px;font-size:11px;color:#94A3B8;display:flex;gap:20px;flex-shrink:0;align-items:center}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#059669;display:inline-block;margin-right:6px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+#hint{margin-left:auto;font-style:italic}
 /* ── SIGNATURE MODAL ── */
-.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,10,15,0.8);backdrop-filter:blur(8px);z-index:99999;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);z-index:99999;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
 .modal-overlay.show{display:flex;opacity:1}
-.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;width:95%;max-width:500px;box-shadow:0 10px 40px rgba(0,0,0,0.5);overflow:hidden;animation:slideUpModal 0.3s cubic-bezier(0.16,1,0.3,1)}
-@keyframes slideUpModal { from { transform:translateY(30px); opacity:0 } to { transform:translateY(0); opacity:1 } }
-.modal-header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.modal-header h3{font-family:'Syne',sans-serif;font-weight:800;color:var(--text);margin:0;font-size:18px}
-.close-btn{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1}
-.close-btn:hover{color:var(--text)}
-.modal-tabs{display:flex;border-bottom:1px solid var(--border);background:rgba(26,26,38,0.5)}
-.tab-btn{flex:1;background:transparent;border:none;color:var(--muted);padding:12px;cursor:pointer;font-family:'DM Mono',monospace;font-size:13px;transition:all 0.2s;border-bottom:2px solid transparent}
-.tab-btn:hover{color:var(--text);background:var(--card)}
-.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--card)}
+.modal-box{background:#fff;border:1px solid #E2E8F0;border-radius:16px;width:95%;max-width:500px;box-shadow:0 16px 40px rgba(0,0,0,0.10);overflow:hidden;animation:slideUpModal 0.25s cubic-bezier(0.16,1,0.3,1)}
+@keyframes slideUpModal{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{padding:16px 24px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center}
+.modal-header h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#0F172A;margin:0;font-size:17px}
+.close-btn{background:none;border:none;color:#94A3B8;font-size:22px;cursor:pointer;line-height:1}
+.close-btn:hover{color:#0F172A}
+.modal-tabs{display:flex;border-bottom:1px solid #E2E8F0;background:#F8FAFC}
+.tab-btn{flex:1;background:transparent;border:none;color:#94A3B8;padding:12px;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;transition:all .15s;border-bottom:2px solid transparent}
+.tab-btn:hover{color:#0F172A;background:#fff}
+.tab-btn.active{color:#1A56DB;border-bottom-color:#1A56DB;background:#fff}
 .tab-content{padding:24px;min-height:220px}
 .tab-pane{display:none;flex-direction:column}
 .tab-pane.active{display:flex}
-.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:12px;background:rgba(26,26,38,0.5)}
+.modal-footer{padding:16px 24px;border-top:1px solid #E2E8F0;display:flex;justify-content:flex-end;gap:12px;background:#F8FAFC}
 .btn-sm{padding:6px 12px;font-size:12px}
-#sig-type-inp{width:100%;background:rgba(10,10,15,0.5);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:8px;font-family:'DM Mono',monospace;font-size:14px;outline:none}
-#sig-type-inp:focus{border-color:var(--accent)}
+#sig-type-inp{width:100%;background:#fff;border:1.5px solid #E2E8F0;color:#0F172A;padding:11px 14px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;outline:none}
+#sig-type-inp:focus{border-color:#1A56DB;box-shadow:0 0 0 3px rgba(26,86,219,0.08)}
 .sig-font-opts{display:flex;gap:8px;margin-top:12px;overflow-x:auto;padding-bottom:4px}
-.sig-font-btn{flex-shrink:0;background:rgba(26,26,38,0.5);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:20px;transition:all 0.2s}
-.sig-font-btn:hover{background:var(--card);border-color:var(--accent)}
-.sig-font-btn.active{background:rgba(96,239,255,0.1);border-color:var(--accent);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-.sig-preview{font-family:'Caveat',cursive;font-size:64px;color:var(--text);text-align:center;margin-top:20px;min-height:70px;line-height:1;overflow:hidden;word-break:break-all}
-.canvas-container{border:1px dashed var(--border);border-radius:8px;background:#fff;display:flex;justify-content:center;cursor:crosshair;overflow:hidden}
+.sig-font-btn{flex-shrink:0;background:#F8FAFC;border:1.5px solid #E2E8F0;color:#0F172A;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:20px;transition:all .15s}
+.sig-font-btn:hover{background:#fff;border-color:#1A56DB}
+.sig-font-btn.active{background:rgba(26,86,219,0.08);border-color:#1A56DB;color:#1A56DB}
+.sig-preview{font-family:'Caveat',cursive;font-size:64px;color:#0F172A;text-align:center;margin-top:20px;min-height:70px;line-height:1;overflow:hidden;word-break:break-all}
+.canvas-container{border:1px solid #E2E8F0;border-radius:8px;background:#fff;display:flex;justify-content:center;cursor:crosshair;overflow:hidden}
 #sig-canvas{display:block;touch-action:none}
-.sig-dropzone{border:2px dashed rgba(96,239,255,0.4);border-radius:12px;height:150px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:all 0.2s}
-.sig-dropzone:hover{border-color:var(--accent);background:rgba(96,239,255,0.05);color:var(--accent)}
+.sig-dropzone{border:2px dashed #CBD5E1;border-radius:12px;height:150px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#94A3B8;transition:all .15s}
+.sig-dropzone:hover{border-color:#1A56DB;background:rgba(26,86,219,0.04);color:#1A56DB}
 
-/* Global Nav injected styles */
-.site-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);flex-shrink:0;z-index:100;position:relative}
+/* ─── EDITOR TOOLBAR BAR (undo/redo/save row) ─── */
+.navbar{background:#fff;border-bottom:1.5px solid #E2E8F0;padding:8px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;z-index:10}
 
-.nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#donate-nav{min-width:120px;display:flex;justify-content:flex-end;}
-@media(max-width:768px){#nav-links{display:none!important}#hamburger{display:block!important}#spacer{display:block!important}#donate-nav{display:none!important}#logo{position:absolute;left:50%;transform:translateX(-50%);}.site-nav{padding:20px 24px}}
-#mobile-menu{display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(10,10,15,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:0;}
-#mobile-menu a {display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid var(--border);}
+/* ─── BELOW-EDITOR SECTION SPACING ─── */
+.ad-slot--banner{margin-top:var(--s5);margin-bottom:var(--s5)}
+.how-it-works{margin-top:var(--s5)}
+
+/* content + FAQ */
+.content-section{max-width:700px;margin:60px auto;padding:0 24px}
+.content-section h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:800;margin-bottom:16px;letter-spacing:-0.5px;color:#0F172A}
+.content-section p{font-size:14px;color:#475569;line-height:1.85;margin-bottom:16px}
+.faq{margin-top:48px}
+.faq h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:800;margin-bottom:24px;letter-spacing:-0.5px;color:#0F172A}
+.faq-item{background:#fff;border:1.5px solid #E2E8F0;border-radius:10px;padding:18px 22px;margin-bottom:10px;transition:border-color .15s}
+.faq-item:hover{border-color:#1A56DB}
+.faq-q{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px;color:#0F172A}
+.faq-a{font-size:13px;color:#475569;line-height:1.75}
 
 
 /* ── Falling PDF particles ── */
 @keyframes fallPdf{0%{opacity:.95;transform:translateY(0) rotate(var(--pdf-r)) scale(1)}100%{opacity:0;transform:translateY(58px) rotate(calc(var(--pdf-r) + 22deg)) scale(.55)}}
 .pdf-fall{position:fixed;pointer-events:none;z-index:99999;animation:fallPdf .75s ease-in forwards}
-</style>
+
+    .content-section{position:relative;z-index:1;max-width:700px;margin:60px auto;padding:0 24px}
+    .content-section h2{font-family:var(--font-display);font-size:28px;font-weight:800;margin-bottom:16px;letter-spacing:-1px}
+    .content-section p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:16px}
+    .faq{margin-top:48px}
+    .faq h2{font-family:var(--font-display);font-size:28px;font-weight:800;margin-bottom:24px;letter-spacing:-1px}
+    .faq-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:12px}
+    .faq-q{font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:8px}
+    .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+
+  </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What can I do with the PDF editor?","acceptedAnswer":{"@type":"Answer","text":"You can add typed text anywhere on the page, highlight content in colour, draw freehand lines and shapes, add rectangles, circles, and arrows, and annotate your PDF with comments."}},
+    {"@type":"Question","name":"Do I need to install any software?","acceptedAnswer":{"@type":"Answer","text":"No. The editor runs entirely in your browser. It works on Chrome, Firefox, Safari, and Edge. No plugins, no downloads, no installation required."}},
+    {"@type":"Question","name":"Are my files kept private?","acceptedAnswer":{"@type":"Answer","text":"Yes. All editing happens locally in your browser. Your PDF is never uploaded to any server at any point."}},
+    {"@type":"Question","name":"Can I save my edited PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click the Download button at any point to save your work as a PDF. All text, highlights, drawings, and annotations are permanently embedded in the downloaded file."}},
+    {"@type":"Question","name":"What browsers are supported?","acceptedAnswer":{"@type":"Answer","text":"The editor works on Chrome, Firefox, Safari, and Edge. We recommend the latest version of Chrome for the best performance."}},
+    {"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"There is no fixed file size limit since all processing happens in your browser. Most standard business PDFs of up to 50MB load quickly on modern computers."}},
+    {"@type":"Question","name":"Can I use the editor to sign documents?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the freehand drawing tool to draw your signature, or use the text tool to type your name on a signature line. Download the signed PDF when done."}}
+  ]
+}
+</script>
 </head>
 <body>
 
-<!-- Decorative floating PDF icons -->
-<div style="position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;">
-  <svg style="position:absolute;left:2%;top:8%;transform:rotate(-18deg);opacity:0.13" width="52" height="64" viewBox="0 0 52 64"><rect x="1" y="1" width="38" height="48" rx="4" fill="none" stroke="#60efff" stroke-width="2"/><polygon points="29,1 39,11 29,11" fill="none" stroke="#60efff" stroke-width="2"/><rect x="7" y="22" width="24" height="2.5" rx="1" fill="#60efff"/><rect x="7" y="29" width="18" height="2.5" rx="1" fill="#60efff"/><rect x="5" y="40" width="30" height="8" rx="2" fill="#60efff"/><text x="20" y="47" text-anchor="middle" style="font-size:6px;font-weight:800;fill:#0a0a0f;font-family:Arial">PDF</text></svg>
+<!-- NAV -->
+<nav class="nav">
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()">&#9776;</button>
+  <a href="/" class="nav-logo">edit<span>pdf</span>.fyi</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/edit.html" class="nav-link active">Edit PDF</a>
+    <a href="/merge.html" class="nav-link">Merge PDF</a>
+    <a href="/compress.html" class="nav-link">Compress PDF</a>
+    <a href="/split.html" class="nav-link">Split PDF</a>
+    <a href="/convert.html" class="nav-link">Convert PDF</a>
+  </div>
+  <div class="nav-right" id="nav-right">
+    <a href="https://paypal.me/editpdffyi" target="_blank" rel="noopener" class="btn-donate">&#9829; Donate</a>
+  </div>
+  <div class="nav-spacer" id="nav-spacer"></div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/edit.html" class="mobile-link active">Edit PDF</a>
+  <a href="/merge.html" class="mobile-link">Merge PDF</a>
+  <a href="/compress.html" class="mobile-link">Compress PDF</a>
+  <a href="/split.html" class="mobile-link">Split PDF</a>
+  <a href="/convert.html" class="mobile-link">Convert PDF</a>
+  <a href="https://paypal.me/editpdffyi" target="_blank" rel="noopener" class="mobile-link mobile-link--donate">&#9829; Donate</a>
+</div>
+
+<div style="display:none"><!-- removed -->
   <svg style="position:absolute;right:3%;top:4%;transform:rotate(15deg);opacity:0.13" width="44" height="54" viewBox="0 0 44 54"><rect x="1" y="1" width="34" height="44" rx="4" fill="none" stroke="#3b82f6" stroke-width="2"/><polygon points="26,1 35,10 26,10" fill="none" stroke="#3b82f6" stroke-width="2"/><rect x="6" y="19" width="20" height="2" rx="1" fill="#3b82f6"/><rect x="6" y="25" width="15" height="2" rx="1" fill="#3b82f6"/><rect x="4" y="33" width="28" height="7" rx="2" fill="#3b82f6"/><text x="18" y="39" text-anchor="middle" style="font-size:5px;font-weight:800;fill:#0a0a0f;font-family:Arial">PDF</text></svg>
   <svg style="position:absolute;left:7%;bottom:8%;transform:rotate(12deg);opacity:0.13" width="38" height="48" viewBox="0 0 38 48"><rect x="1" y="1" width="30" height="38" rx="3" fill="none" stroke="#60efff" stroke-width="1.5"/><polygon points="22,1 31,10 22,10" fill="none" stroke="#60efff" stroke-width="1.5"/><rect x="5" y="17" width="17" height="2" rx="1" fill="#60efff"/><rect x="5" y="22" width="12" height="2" rx="1" fill="#60efff"/><rect x="3" y="28" width="24" height="6" rx="2" fill="#60efff"/><text x="15" y="33" text-anchor="middle" style="font-size:5px;font-weight:800;fill:#0a0a0f;font-family:Arial">PDF</text></svg>
   <svg style="position:absolute;right:5%;bottom:10%;transform:rotate(-10deg);opacity:0.13" width="46" height="56" viewBox="0 0 46 56"><rect x="1" y="1" width="36" height="46" rx="4" fill="none" stroke="#3b82f6" stroke-width="2"/><polygon points="28,1 37,10 28,10" fill="none" stroke="#3b82f6" stroke-width="2"/><rect x="6" y="20" width="22" height="2.5" rx="1" fill="#3b82f6"/><rect x="6" y="27" width="16" height="2.5" rx="1" fill="#3b82f6"/><rect x="4" y="34" width="28" height="8" rx="2" fill="#3b82f6"/><text x="18" y="41" text-anchor="middle" style="font-size:6px;font-weight:800;fill:#0a0a0f;font-family:Arial">PDF</text></svg>
@@ -212,43 +263,9 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(0.9)}
   <svg style="position:absolute;left:88%;top:35%;transform:rotate(10deg);opacity:0.09" width="28" height="35" viewBox="0 0 28 35"><rect x="1" y="1" width="22" height="29" rx="3" fill="none" stroke="#3b82f6" stroke-width="1.3"/><polygon points="16,1 23,8 16,8" fill="none" stroke="#3b82f6" stroke-width="1.3"/><rect x="4" y="13" width="13" height="1.5" rx="1" fill="#3b82f6"/><rect x="4" y="17" width="9" height="1.5" rx="1" fill="#3b82f6"/><rect x="3" y="21" width="16" height="5" rx="2" fill="#3b82f6"/><text x="11" y="25" text-anchor="middle" style="font-size:3.8px;font-weight:800;fill:#0a0a0f;font-family:Arial">PDF</text></svg>
 </div>
 
-<nav class="site-nav">
-  <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;color:#e8e8f0;font-size:24px;cursor:pointer;padding:4px;z-index:101;">&#9776;</button>
-  <a href="/" id="logo" style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">editpdf.fyi</a>
-  <div id="donate-nav"><a href="https://paypal.me/editpdffyi" target="_blank" style="background:linear-gradient(135deg,#60efff,#3b82f6);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:Syne,sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;">&#9829;&nbsp;Donate</a></div>
-  <div class="nav-links" id="nav-links" style="display:flex;gap:32px;align-items:center;position:absolute;left:50%;transform:translateX(-50%);">
-    <a href="/convert.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Convert PDF</a>
-    <a href="/merge.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Merge PDF</a>
-    <a href="/compress.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Compress PDF</a>
-    <a href="/split.html" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Split PDF</a>
-    <a href="/edit.html" onmouseenter="spawnFallingPDFs(this,'#60efff')" style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Edit PDF</a>
-  </div>
-  <div style="width:32px;display:none;" id="spacer"></div>
-</nav>
-<div id="mobile-menu">
-  <a href="/convert.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Convert PDF</a>
-  <a href="/merge.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Merge PDF</a>
-  <a href="/compress.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Compress PDF</a>
-  <a href="/split.html" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Split PDF</a>
-  <a href="/edit.html" onmouseenter="spawnFallingPDFs(this,'#60efff')" style="display:block;padding:14px 0;font-family:Syne,sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#60efff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #2a2a3d;">Edit PDF</a>
-  <a href="https://paypal.me/editpdffyi" target="_blank" style="color:#fff;text-align:center;background:none;-webkit-text-fill-color:initial;border-bottom:none;">&#9829;&nbsp;Donate</a>
-</div>
 <script>
-function spawnFallingPDFs(el,c){
-  var r=el.getBoundingClientRect();
-  for(var i=0;i<7;i++){(function(i){
-    setTimeout(function(){
-      var d=document.createElement('div'),ang=(Math.random()-.5)*34;
-      d.className='pdf-fall';
-      d.style.cssText='--pdf-r:'+ang+'deg;left:'+(r.left+r.width*(.05+.9*Math.random()))+'px;top:'+(r.bottom+3)+'px;';
-      d.innerHTML='<svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.8 0.5h6.2l3 3v9.8a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.2a.7.7 0 0 1 .8-.7z" stroke="'+c+'" stroke-width="1.1"/><polyline points="8,0.5 8,3.5 11,3.5" stroke="'+c+'" stroke-width="1.1"/><rect x="1.8" y="5.5" width="8.4" height="5" rx="0.6" fill="'+c+'" opacity="0.92"/><text x="6" y="9.5" text-anchor="middle" style="font-size:3.4px;font-weight:800;fill:#0a0a0f;font-family:Arial,sans-serif">PDF</text></svg>';
-      document.body.appendChild(d);
-      setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},850);
-    },i*70);
-  })(i);}
-}
-</script>
-<script>function toggleMenu(){var m=document.getElementById("mobile-menu");m.style.display=m.style.display==="flex"?"none":"flex";}</script>
+function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
+function spawnFallingPDFs(el){var c='#1A56DB';var r=el.getBoundingClientRect();for(var i=0;i<7;i++){(function(i){setTimeout(function(){var d=document.createElement('div'),ang=(Math.random()-.5)*34;d.className='pdf-fall';d.style.cssText='--pdf-r:'+ang+'deg;left:'+(r.left+r.width*(.05+.9*Math.random()))+'px;top:'+(r.bottom+3)+'px;';d.innerHTML='<svg width="12" height="15" viewBox="0 0 12 15" fill="none"><path d="M1.8 0.5h6.2l3 3v9.8a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.2a.7.7 0 0 1 .8-.7z" stroke="'+c+'" stroke-width="1.1"/><polyline points="8,0.5 8,3.5 11,3.5" stroke="'+c+'" stroke-width="1.1"/><rect x="1.8" y="5.5" width="8.4" height="5" rx="0.6" fill="'+c+'" opacity="0.9"/><text x="6" y="9.5" text-anchor="middle" style="font-size:3.4px;font-weight:800;fill:#fff;font-family:Arial">PDF</text></svg>';document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},850);},i*70);})(i);}}</script>
 
 
 <!-- NAVBAR -->
@@ -275,40 +292,40 @@ function spawnFallingPDFs(el,c){
   <div class="toolbar">
     <button class="tool-btn active" data-tool="select">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-7 1-3.5 6.5z"/></svg>
-      <span class="tool-tip">Select &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">V</kbd></span>
+      <span class="tool-tip">Select &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">V</kbd></span>
     </button>
     <button class="tool-btn" data-tool="text">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-      <span class="tool-tip">Text &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">T</kbd></span>
+      <span class="tool-tip">Text &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">T</kbd></span>
     </button>
     <button class="tool-btn" data-tool="highlight">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>
-      <span class="tool-tip">Highlight &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">H</kbd></span>
+      <span class="tool-tip">Highlight &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">H</kbd></span>
     </button>
     <button class="tool-btn" data-tool="draw">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17c3.333-3.333 5-6 5-9s-1.667-4-2.5-4C4 4 3 5 3 6.5c0 2 2 4 6 4s8-4 8-4"/><path d="m19 11 2 2-8 8-2-1-1-3z"/></svg>
-      <span class="tool-tip">Draw &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">D</kbd></span>
+      <span class="tool-tip">Draw &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">D</kbd></span>
     </button>
     <button class="tool-btn" id="image-btn" title="Insert Image">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-      <span class="tool-tip">Image &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">I</kbd></span>
+      <span class="tool-tip">Image &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">I</kbd></span>
     </button>
     <input type="file" id="img-inp" accept="image/*" style="display:none">
     <button class="tool-btn" data-tool="eraser">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21" /><path d="M22 21H7" /><path d="m5 11 9 9" /></svg>
-      <span class="tool-tip">Eraser &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">E</kbd></span>
+      <span class="tool-tip">Eraser &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">E</kbd></span>
     </button>
     <button class="tool-btn" data-tool="redact">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
-      <span class="tool-tip">Redact &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">R</kbd></span>
+      <span class="tool-tip">Redact &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">R</kbd></span>
     </button>
     <button class="tool-btn" data-tool="tick">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <span class="tool-tip">Tick &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">K</kbd></span>
+      <span class="tool-tip">Tick &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">K</kbd></span>
     </button>
     <button class="tool-btn" data-tool="cross">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      <span class="tool-tip">Cross &nbsp;<kbd style="font-size:9px;background:#0a0a0f;border:1px solid #2a2a3d;border-radius:3px;padding:1px 4px;">X</kbd></span>
+      <span class="tool-tip">Cross &nbsp;<kbd style="font-size:9px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 4px;color:#475569;">X</kbd></span>
     </button>
     <button class="tool-btn" id="sig-btn" title="Signature">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-4.24 4.24a1 1 0 0 0 .21 1.4l5.31 3.54z"/><path d="M5 21v-3.5L16.5 6 20 9.5 8.5 21H5z"/></svg>
@@ -407,18 +424,35 @@ function spawnFallingPDFs(el,c){
     </div>
   </div>
 
+  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Edit PDF Online — Annotate, Sign &amp; Draw</h1>
+
   <!-- CANVAS AREA -->
   <div class="canvas-area" id="canvas-area">
 
+    <div class="trust-pills" style="margin-bottom:8px;">
+      <span class="trust-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        File never leaves your device
+      </span>
+      <span class="trust-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        No upload required
+      </span>
+    </div>
     <div class="drop-zone" id="drop-zone">
       <div class="drop-icon">
         <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="12 12 12 18"/><polyline points="9 15 12 12 15 15"/></svg>
       </div>
       <h2>Drop your PDF here</h2>
-      <p>or click to browse &nbsp;·&nbsp; supports any PDF<br>
-        <span style="margin-top:6px;display:inline-block">
-          <kbd>V</kbd> select &nbsp; <kbd>T</kbd> text &nbsp; <kbd>H</kbd> highlight &nbsp; <kbd>D</kbd> draw &nbsp; <kbd>R</kbd> redact &nbsp; <kbd>E</kbd> eraser
-        </span>
+      <p>or click to browse &nbsp;·&nbsp; supports any PDF</p>
+      <button class="btn-select-file" style="margin-top:16px;" onclick="event.stopPropagation();document.getElementById('file-inp').click()">Select File</button>
+      <p style="margin-top:14px;font-size:11px;color:#94A3B8;">
+        <kbd style="font-size:10px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 5px;color:#475569;">V</kbd> select &nbsp;
+        <kbd style="font-size:10px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 5px;color:#475569;">T</kbd> text &nbsp;
+        <kbd style="font-size:10px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 5px;color:#475569;">H</kbd> highlight &nbsp;
+        <kbd style="font-size:10px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 5px;color:#475569;">D</kbd> draw &nbsp;
+        <kbd style="font-size:10px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 5px;color:#475569;">R</kbd> redact &nbsp;
+        <kbd style="font-size:10px;background:#F1F5F9;border:1px solid #CBD5E1;border-radius:3px;padding:1px 5px;color:#475569;">E</kbd> eraser
       </p>
     </div>
 
@@ -542,7 +576,7 @@ const S = {
   textSize: 16,
   hlColor: '#ffd700',
   hlOpacity: 0.4,
-  drawColor: '#60efff',
+  drawColor: '#1A56DB',
   drawWidth: 3,
   eraserColor: '#ffffff',
   eraserWidth: 12,
@@ -1748,5 +1782,104 @@ $('sig-apply').onclick = () => {
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 $('hint').textContent = HINTS.select;
 </script>
+
+<!-- AD SLOT -->
+<div class="container--narrow">
+  <div class="ad-slot ad-slot--banner"></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <p class="how-it-works-title">How it works</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">Step 1</div>
+      <div class="step-icon">&#128196;</div>
+      <div class="step-title">Upload</div>
+      <div class="step-desc">Drop your PDF into the editor or click Select File to open it instantly in your browser.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 2</div>
+      <div class="step-icon">&#9998;</div>
+      <div class="step-title">Edit</div>
+      <div class="step-desc">Add text, highlight, draw, redact, insert images and sign — using the toolbar on the left.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 3</div>
+      <div class="step-icon">&#11015;&#65039;</div>
+      <div class="step-title">Save</div>
+      <div class="step-desc">Click Save PDF to download your edited file. All changes are permanently embedded.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED TOOLS -->
+<section class="related-tools">
+  <p class="related-tools-title">Related tools</p>
+  <div class="related-tools-grid">
+    <a href="/pdf-to-word.html" class="tool-grid-card">
+      <div class="tool-icon">&#128196;</div>
+      <div class="tool-content">
+        <div class="tool-name">PDF to Word</div>
+        <div class="tool-desc">Convert to Word if you need to edit the original text.</div>
+      </div>
+    </a>
+    <a href="/compress.html" class="tool-grid-card">
+      <div class="tool-icon">&#128292;</div>
+      <div class="tool-content">
+        <div class="tool-name">Compress PDF</div>
+        <div class="tool-desc">Reduce file size after editing for easy sharing.</div>
+      </div>
+    </a>
+    <a href="/merge.html" class="tool-grid-card">
+      <div class="tool-icon">&#128206;</div>
+      <div class="tool-content">
+        <div class="tool-name">Merge PDF</div>
+        <div class="tool-desc">Combine multiple PDFs into one document.</div>
+      </div>
+    </a>
+    <a href="/split.html" class="tool-grid-card">
+      <div class="tool-icon">&#9986;&#65039;</div>
+      <div class="tool-content">
+        <div class="tool-name">Split PDF</div>
+        <div class="tool-desc">Extract specific pages from your PDF.</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="content-section">
+  <h2>How to Edit a PDF Online</h2>
+  <p>Upload your PDF by dragging it into the editor or clicking to browse. Once loaded, the full editing toolbar appears giving you immediate access to all annotation and editing tools. Add text anywhere on the page, highlight important sections, draw freehand annotations, insert shapes, and mark up your document exactly as needed. When you are done, click Download to save the edited PDF with all your changes applied. No software installation required.</p>
+
+  <p>The EditPDF online editor runs entirely within your web browser using modern browser PDF technology. This means your file is never sent to any server at any point during editing. Everything happens locally on your own device. This architecture makes it both faster and more private than cloud-based editors where your document travels back and forth to a remote server for every action. For sensitive documents — legal contracts, medical records, financial statements, confidential business materials — browser-side editing means your content never leaves your computer.</p>
+
+  <p>The most common use for an online PDF editor is annotating documents for review. Reviewers can add text comments directly onto the pages of a PDF report, highlight passages that need attention, draw arrows or circles to point out specific areas in diagrams or images, and add sticky-note style annotations without altering the underlying document structure. The result is a clearly marked-up version that can be shared with authors, colleagues, or clients who can immediately see exactly what needs to change.</p>
+
+  <p>Another major use case is filling in forms. Many PDF forms are distributed as static documents with field lines but no interactive form fields. With the text tool, you can click precisely on any field line or blank area and type your information directly onto the page. This works for government forms, application forms, questionnaires, and any other document that asks you to fill in information. When you download the completed PDF, all your entries are permanently embedded in the document just as if you had printed and handwritten them, but in crisp typed text.</p>
+
+  <p>The editor also handles signature workflows. You can draw your signature using the freehand drawing tool, or type your name in a signature-style font and position it precisely on a signature line. Combined with the date text tool, this lets you sign and date documents without printing, signing by hand, scanning, and emailing — saving significant time for routine agreements, approvals, and acknowledgements.</p>
+
+  <div class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item"><div class="faq-q">What can I do with the PDF editor?</div><div class="faq-a">You can add typed text anywhere on the page, highlight content in colour, draw freehand lines and shapes, add rectangles, circles, and arrows, and annotate your PDF with comments. These tools cover the full range of typical document markup, form filling, and annotation needs without requiring Adobe Acrobat or any other software.</div></div>
+    <div class="faq-item"><div class="faq-q">Do I need to install any software?</div><div class="faq-a">No. The editor runs entirely in your browser using modern web technologies. It works on any modern desktop or laptop browser including Chrome, Firefox, Safari, and Edge. No plugins, no downloads, no installation. Open the page and start editing immediately.</div></div>
+    <div class="faq-item"><div class="faq-q">Are my files kept private?</div><div class="faq-a">Yes, completely. All editing happens locally in your browser. Your PDF is never uploaded to any server at any point. This is fundamentally different from cloud-based editors that process your document on remote servers. Your file stays on your device throughout the entire editing session.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I save my edited PDF?</div><div class="faq-a">Yes. Click the Download button at any point to save your current work as a PDF. All text, highlights, drawings, and annotations are permanently embedded in the downloaded file. You can open it in any PDF viewer and all your edits will be visible.</div></div>
+    <div class="faq-item"><div class="faq-q">What browsers are supported?</div><div class="faq-a">The editor is tested and works on Chrome, Firefox, Safari, and Edge. We recommend the latest version of Chrome for the best performance and broadest feature support. The editor does not work on very old browsers that lack modern PDF rendering support.</div></div>
+    <div class="faq-item"><div class="faq-q">Is there a file size limit?</div><div class="faq-a">There is no fixed file size limit since all processing happens in your browser rather than on a server. Very large PDFs with many high-resolution images may load more slowly depending on your device's RAM and processing power. Most standard business PDFs of up to 50MB load quickly on modern computers.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I edit the original text in a PDF?</div><div class="faq-a">The editor lets you add new text on top of the existing content but does not allow you to modify or delete the original underlying text in the PDF. This is a fundamental limitation of the PDF format — the original content is fixed. To edit the original text, use our PDF to Word converter to get a fully editable Word document, make your changes in Word, then convert back to PDF if needed.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I use the editor to sign documents?</div><div class="faq-a">Yes. Use the freehand drawing tool to draw your signature, or use the text tool to type your name on a signature line. Position it precisely where needed. The freehand tool responds to mouse and touchscreen input, so you can create a natural-looking signature. Download the signed PDF and it is ready to share or submit.</div></div>
+    <div class="faq-item"><div class="faq-q">Is the PDF editor free?</div><div class="faq-a">Yes. Completely free with no limits, no account required, and no watermarks added to your documents. Open the editor, make your changes, and download the result. There are no restrictions on usage.</div></div>
+  </div>
+</section>
+<footer class="footer">
+  <div>&copy; 2026 EditPDF.fyi</div>
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/about.html">About</a>
+  </div>
+</footer>
 </body>
 </html>
+
