@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Reduce PDF File Size Without Losing Quality | EditPDF</title>
+  <meta name="description" content="Learn the most effective ways to compress a PDF without degrading quality — covering image DPI, font subsetting, metadata removal, and the best free tools.">
+  <link rel="canonical" href="https://editpdf.fyi/blog-compress-pdf.html"/>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="EditPDF">
+  <meta property="og:url" content="https://editpdf.fyi/blog-compress-pdf.html">
+  <meta property="og:title" content="How to Reduce PDF File Size Without Losing Quality | EditPDF">
+  <meta property="og:description" content="Learn the most effective ways to compress a PDF without degrading quality — covering image DPI, font subsetting, metadata removal, and the best free tools.">
+  <meta property="og:image" content="https://editpdf.fyi/favicon-mint.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Reduce PDF File Size Without Losing Quality | EditPDF">
+  <meta name="twitter:description" content="Learn the most effective ways to compress a PDF without degrading quality — covering image DPI, font subsetting, metadata removal, and the best free tools.">
+  <meta name="twitter:image" content="https://editpdf.fyi/favicon-mint.svg">
+  <link rel="icon" type="image/svg+xml" href="/favicon-mint.svg"/>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+  <meta name="google-site-verification" content="XsTSjHM8hXSuyO9VL8rglzO543OVJk7V7ms3v7CEOHY"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJ40EYYVEC"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-CJ40EYYVEC");</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5112395939470933" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/design-system.css"/>
+  <style>
+    .article-hero {
+      background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: var(--s9) var(--s5) var(--s7);
+      text-align: center;
+    }
+    .article-category {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(26,86,219,0.15);
+      border-radius: var(--radius-pill);
+      padding: 4px 14px;
+      margin-bottom: var(--s4);
+    }
+    .article-hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(26px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: var(--text);
+      margin-bottom: var(--s3);
+      line-height: 1.12;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .article-meta { font-size: 13px; color: var(--text-muted); margin-top: var(--s3); }
+    .breadcrumb { font-size: 12px; color: var(--text-muted); margin-bottom: var(--s6); }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb .sep { margin: 0 6px; }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: var(--s8) var(--s5) var(--s9); }
+    .article-body h2 { font-family: var(--font-head); font-size: 22px; font-weight: 800; color: var(--text); margin: var(--s7) 0 var(--s4); letter-spacing: -0.5px; }
+    .article-body h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--text); margin: var(--s5) 0 var(--s3); }
+    .article-body p { font-size: 15px; color: var(--text-2); line-height: 1.85; margin-bottom: var(--s4); }
+    .article-body ul, .article-body ol { margin: 0 0 var(--s4) var(--s5); font-size: 15px; color: var(--text-2); line-height: 1.85; }
+    .article-body li { margin-bottom: var(--s2); }
+    .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .article-body a:hover { color: var(--accent-hover); }
+    .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: var(--s5) 0; }
+    .stat-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: var(--s4); text-align: center; }
+    .stat-num { font-family: var(--font-head); font-size: 26px; font-weight: 800; color: var(--accent); }
+    .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+    .cta-box {
+      background: var(--accent-light);
+      border: 1.5px solid rgba(26,86,219,0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--s6) var(--s7);
+      margin: var(--s7) 0;
+      text-align: center;
+    }
+    .cta-box h3 { font-family: var(--font-head); font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: var(--s2); letter-spacing: -0.3px; }
+    .cta-box p { font-size: 14px; color: var(--text-2); margin: 0 0 var(--s5); }
+    .cta-btn {
+      display: inline-block;
+      padding: 13px 32px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: background 0.15s, transform 0.12s;
+    }
+    .cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); color: #fff; }
+    .tip-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--s4) var(--s5);
+      margin: var(--s4) 0;
+      font-size: 13.5px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .tip-box strong { color: var(--accent); }
+    .article-body .cta-btn { color: #fff !important; text-decoration: none !important; }
+    .article-body .cta-btn:hover { color: #fff !important; }
+  </style>
+  <!-- Start cookieyes banner --> <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b039fc71e6672c861297acfc82028010/script.js"></script> <!-- End cookieyes banner -->
+</head>
+<body>
+
+<nav class="nav">
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()">&#9776;</button>
+  <a href="/" class="nav-logo">edit<span>pdf</span>.fyi</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/edit.html" class="nav-link" onmouseenter="spawnFallingPDFs(this)">Edit PDF</a>
+    <a href="/merge.html" class="nav-link">Merge PDF</a>
+    <a href="/compress.html" class="nav-link">Compress PDF</a>
+    <a href="/split.html" class="nav-link">Split PDF</a>
+    <a href="/convert.html" class="nav-link">Convert PDF</a>
+  </div>
+  <div class="nav-right" id="nav-right">
+    <a href="https://paypal.me/editpdffyi" target="_blank" rel="noopener" class="btn-donate">&#9829; Donate</a>
+  </div>
+  <div class="nav-spacer" id="nav-spacer"></div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/edit.html" class="mobile-link" onmouseenter="spawnFallingPDFs(this)">Edit PDF</a>
+  <a href="/merge.html" class="mobile-link">Merge PDF</a>
+  <a href="/compress.html" class="mobile-link">Compress PDF</a>
+  <a href="/split.html" class="mobile-link">Split PDF</a>
+  <a href="/convert.html" class="mobile-link">Convert PDF</a>
+  <a href="https://paypal.me/editpdffyi" target="_blank" rel="noopener" class="mobile-link mobile-link--donate">&#9829; Donate</a>
+</div>
+
+<script>
+function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
+function spawnFallingPDFs(el){var r=el.getBoundingClientRect();for(var i=0;i<7;i++){(function(i){setTimeout(function(){var d=document.createElement('div'),ang=(Math.random()-.5)*34;d.className='pdf-fall';d.style.cssText='--pdf-r:'+ang+'deg;left:'+(r.left+r.width*(.05+.9*Math.random()))+'px;top:'+(r.bottom+3)+'px;';d.innerHTML='<svg width="12" height="15" viewBox="0 0 12 15" fill="none"><path d="M1.8 0.5h6.2l3 3v9.8a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.2a.7.7 0 0 1 .8-.7z" stroke="#1A56DB" stroke-width="1.1"/><polyline points="8,0.5 8,3.5 11,3.5" stroke="#1A56DB" stroke-width="1.1"/><rect x="1.8" y="5.5" width="8.4" height="5" rx="0.6" fill="#1A56DB" opacity="0.9"/><text x="6" y="9.5" text-anchor="middle" style="font-size:3.4px;font-weight:800;fill:#fff;font-family:Arial">PDF</text></svg>';document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},850);},i*70);})(i);}}</script>
+
+<section class="article-hero">
+  <div class="article-category">Compression</div>
+  <h1>How to Reduce PDF File Size Without Losing Quality</h1>
+  <p class="article-meta">6 min read &nbsp;&middot;&nbsp; May 2026</p>
+</section>
+
+<div class="article-wrap">
+  <div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/blog.html">Blog</a><span class="sep">/</span>
+    <span>Reduce PDF File Size</span>
+  </div>
+
+  <div class="article-body">
+
+    <p>Most oversized PDFs have the same root cause: images embedded at print resolution that nobody actually asked for.</p>
+
+    <p>When you export from PowerPoint, Keynote, or Word, the software bakes images into the PDF at 300 DPI or higher by default. That's the right setting if the file is going to a printer. For emailing a proposal or uploading a report, it's pointlessly large. A 30-slide deck with full-page photos can hit 60 MB. The same deck optimised for screen would be 8 MB, and you genuinely cannot tell the difference on a monitor.</p>
+
+    <p>Scanned documents are the worst offenders — the entire page gets stored as a high-resolution photograph. A 20-page contract scan at 600 DPI will sit somewhere between 50 and 80 MB. Most scanners ship with high DPI settings and nobody ever changes them.</p>
+
+    <h2>What actually fixes it</h2>
+
+    <p><strong>If you still have the source file</strong> — the PowerPoint, the Word doc — re-export it. Most apps have a "Minimum File Size" or "Optimise for Screen" option buried in the PDF export settings. That's the cleanest fix: you're controlling quality at the source rather than squeezing an already-exported file into a smaller box.</p>
+
+    <p><strong>If you only have the PDF</strong>, use a proper compression tool. Zipping it won't help — PDFs are already internally compressed, so a zip wrapper makes almost no difference. You need something that actually resamples the embedded images. <a href="/compress.html">EditPDF's compressor</a> does this directly in your browser without uploading the file anywhere.</p>
+
+    <p>What won't work: saving the file again, exporting to another format and back, or renaming it. None of those touch the image resolution.</p>
+
+    <h2>One thing to check first</h2>
+
+    <p>If the PDF is going to a professional printer or needs to be kept as a legal archive, don't compress it aggressively. Print quality depends on 300 DPI and some documents have metadata requirements. For everything else, push it as hard as you need to. On screen, 150 DPI is genuinely indistinguishable from 300.</p>
+
+    <p>Keep the original. You can't recover resolution from a downsampled PDF — once those images are resampled, the detail is gone.</p>
+
+    <div class="cta-box">
+      <h3>Compress your PDF — free</h3>
+      <p>Runs in your browser. No account, no watermarks, files never leave your device.</p>
+      <a href="/compress.html" class="cta-btn">Try Free PDF Compressor &rarr;</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="container--narrow">
+  <div class="ad-slot ad-slot--banner"></div>
+</div>
+
+<section class="related-tools">
+  <p class="related-tools-title">Related tools</p>
+  <div class="related-tools-grid">
+    <a href="/compress.html" class="tool-grid-card">
+      <div class="tool-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </div>
+      <div class="tool-content"><div class="tool-name">Compress PDF</div><div class="tool-desc">Reduce file size for email or upload.</div></div>
+    </a>
+    <a href="/merge.html" class="tool-grid-card">
+      <div class="tool-icon">&#128196;</div>
+      <div class="tool-content"><div class="tool-name">Merge PDF</div><div class="tool-desc">Combine multiple PDFs into one file.</div></div>
+    </a>
+    <a href="/split.html" class="tool-grid-card">
+      <div class="tool-icon">&#9986;&#65039;</div>
+      <div class="tool-content"><div class="tool-name">Split PDF</div><div class="tool-desc">Extract pages or split into separate files.</div></div>
+    </a>
+    <a href="/edit.html" class="tool-grid-card">
+      <div class="tool-icon">&#9998;</div>
+      <div class="tool-content"><div class="tool-name">Edit PDF</div><div class="tool-desc">Annotate, sign and fill PDFs in your browser.</div></div>
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>&copy; 2026 EditPDF.fyi</div>
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/about.html">About</a>
+    <a href="/blog.html">Blog</a>
+  </div>
+</footer>
+
+</body>
+</html>

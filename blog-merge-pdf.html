@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Combine Multiple PDFs Into One File | EditPDF</title>
+  <meta name="description" content="Step-by-step guide to merging multiple PDF files into one — using free online tools, Preview on Mac, and built-in Windows options. No software install required.">
+  <link rel="canonical" href="https://editpdf.fyi/blog-merge-pdf.html"/>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="EditPDF">
+  <meta property="og:url" content="https://editpdf.fyi/blog-merge-pdf.html">
+  <meta property="og:title" content="How to Combine Multiple PDFs Into One File | EditPDF">
+  <meta property="og:description" content="Step-by-step guide to merging multiple PDF files into one — using free online tools, Preview on Mac, and built-in Windows options. No software install required.">
+  <meta property="og:image" content="https://editpdf.fyi/favicon-mint.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Combine Multiple PDFs Into One File | EditPDF">
+  <meta name="twitter:description" content="Step-by-step guide to merging multiple PDF files into one — using free online tools, Preview on Mac, and built-in Windows options. No software install required.">
+  <meta name="twitter:image" content="https://editpdf.fyi/favicon-mint.svg">
+  <link rel="icon" type="image/svg+xml" href="/favicon-mint.svg"/>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+  <meta name="google-site-verification" content="XsTSjHM8hXSuyO9VL8rglzO543OVJk7V7ms3v7CEOHY"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJ40EYYVEC"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-CJ40EYYVEC");</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5112395939470933" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/design-system.css"/>
+  <style>
+    .article-hero { background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border); padding: var(--s9) var(--s5) var(--s7); text-align: center; }
+    .article-category { display: inline-block; font-family: var(--font-head); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); background: var(--accent-light); border: 1px solid rgba(26,86,219,0.15); border-radius: var(--radius-pill); padding: 4px 14px; margin-bottom: var(--s4); }
+    .article-hero h1 { font-family: var(--font-head); font-size: clamp(26px, 4vw, 44px); font-weight: 800; letter-spacing: -1.2px; color: var(--text); margin-bottom: var(--s3); line-height: 1.12; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .article-meta { font-size: 13px; color: var(--text-muted); margin-top: var(--s3); }
+    .breadcrumb { font-size: 12px; color: var(--text-muted); margin-bottom: var(--s6); }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb .sep { margin: 0 6px; }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: var(--s8) var(--s5) var(--s9); }
+    .article-body h2 { font-family: var(--font-head); font-size: 22px; font-weight: 800; color: var(--text); margin: var(--s7) 0 var(--s4); letter-spacing: -0.5px; }
+    .article-body h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--text); margin: var(--s5) 0 var(--s3); }
+    .article-body p { font-size: 15px; color: var(--text-2); line-height: 1.85; margin-bottom: var(--s4); }
+    .article-body ul, .article-body ol { margin: 0 0 var(--s4) var(--s5); font-size: 15px; color: var(--text-2); line-height: 1.85; }
+    .article-body li { margin-bottom: var(--s2); }
+    .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .article-body a:hover { color: var(--accent-hover); }
+    .method-list { display: flex; flex-direction: column; gap: 14px; margin: var(--s5) 0; }
+    .method-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: var(--s5); display: flex; gap: var(--s5); align-items: flex-start; transition: border-color 0.2s; }
+    .method-card:hover { border-color: var(--accent); }
+    .method-num { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: var(--accent); opacity: 0.25; flex-shrink: 0; line-height: 1; }
+    .method-body h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: var(--s2); }
+    .method-body p { font-size: 13.5px; color: var(--text-2); line-height: 1.7; margin: 0; }
+    .method-badges { display: flex; gap: 6px; margin-bottom: var(--s2); }
+    .cta-box { background: var(--accent-light); border: 1.5px solid rgba(26,86,219,0.2); border-radius: var(--radius-lg); padding: var(--s6) var(--s7); margin: var(--s7) 0; text-align: center; }
+    .cta-box h3 { font-family: var(--font-head); font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: var(--s2); letter-spacing: -0.3px; }
+    .cta-box p { font-size: 14px; color: var(--text-2); margin: 0 0 var(--s5); }
+    .cta-btn { display: inline-block; padding: 13px 32px; background: var(--accent); color: #fff; font-family: var(--font-head); font-size: 14px; font-weight: 700; border-radius: var(--radius-md); text-decoration: none; transition: background 0.15s, transform 0.12s; }
+    .cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); color: #fff; }
+    .tip-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--s4) var(--s5); margin: var(--s4) 0; font-size: 13.5px; color: var(--text-2); line-height: 1.7; }
+    .tip-box strong { color: var(--accent); }
+    @media (max-width: 600px) { .method-card { flex-direction: column; gap: var(--s3); } }
+    .article-body .cta-btn { color: #fff !important; text-decoration: none !important; }
+    .article-body .cta-btn:hover { color: #fff !important; }
+  </style>
+  <!-- Start cookieyes banner --> <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b039fc71e6672c861297acfc82028010/script.js"></script> <!-- End cookieyes banner -->
+</head>
+<body>
+
+<nav class="nav">
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()">&#9776;</button>
+  <a href="/" class="nav-logo">edit<span>pdf</span>.fyi</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/edit.html" class="nav-link" onmouseenter="spawnFallingPDFs(this)">Edit PDF</a>
+    <a href="/merge.html" class="nav-link">Merge PDF</a>
+    <a href="/compress.html" class="nav-link">Compress PDF</a>
+    <a href="/split.html" class="nav-link">Split PDF</a>
+    <a href="/convert.html" class="nav-link">Convert PDF</a>
+  </div>
+  <div class="nav-right" id="nav-right">
+    <a href="https://paypal.me/editpdffyi" target="_blank" rel="noopener" class="btn-donate">&#9829; Donate</a>
+  </div>
+  <div class="nav-spacer" id="nav-spacer"></div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/edit.html" class="mobile-link" onmouseenter="spawnFallingPDFs(this)">Edit PDF</a>
+  <a href="/merge.html" class="mobile-link">Merge PDF</a>
+  <a href="/compress.html" class="mobile-link">Compress PDF</a>
+  <a href="/split.html" class="mobile-link">Split PDF</a>
+  <a href="/convert.html" class="mobile-link">Convert PDF</a>
+  <a href="https://paypal.me/editpdffyi" target="_blank" rel="noopener" class="mobile-link mobile-link--donate">&#9829; Donate</a>
+</div>
+
+<script>
+function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
+function spawnFallingPDFs(el){var r=el.getBoundingClientRect();for(var i=0;i<7;i++){(function(i){setTimeout(function(){var d=document.createElement('div'),ang=(Math.random()-.5)*34;d.className='pdf-fall';d.style.cssText='--pdf-r:'+ang+'deg;left:'+(r.left+r.width*(.05+.9*Math.random()))+'px;top:'+(r.bottom+3)+'px;';d.innerHTML='<svg width="12" height="15" viewBox="0 0 12 15" fill="none"><path d="M1.8 0.5h6.2l3 3v9.8a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.2a.7.7 0 0 1 .8-.7z" stroke="#1A56DB" stroke-width="1.1"/><polyline points="8,0.5 8,3.5 11,3.5" stroke="#1A56DB" stroke-width="1.1"/><rect x="1.8" y="5.5" width="8.4" height="5" rx="0.6" fill="#1A56DB" opacity="0.9"/><text x="6" y="9.5" text-anchor="middle" style="font-size:3.4px;font-weight:800;fill:#fff;font-family:Arial">PDF</text></svg>';document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},850);},i*70);})(i);}}</script>
+
+<section class="article-hero">
+  <div class="article-category">Merging</div>
+  <h1>How to Combine Multiple PDFs Into One File</h1>
+  <p class="article-meta">5 min read &nbsp;&middot;&nbsp; May 2026</p>
+</section>
+
+<div class="article-wrap">
+  <div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/blog.html">Blog</a><span class="sep">/</span>
+    <span>How to Merge PDFs</span>
+  </div>
+
+  <div class="article-body">
+
+    <p>Job applications, contract packages, invoices with supporting docs — at some point you end up with related files scattered across separate PDFs that need to go out as one. Merging them is quick. Which method makes sense depends on what you have available.</p>
+
+    <h2>Fastest option: use a browser tool</h2>
+
+    <p><a href="/merge.html">EditPDF's merge tool</a> runs entirely in your browser — the files never leave your device. Add them, drag into the right order, click merge, download. About 30 seconds once everything is open.</p>
+
+    <p>Order matters. Double-check before you click merge, because fixing it afterwards means starting over.</p>
+
+    <h2>On a Mac: Preview does this for free</h2>
+
+    <p>Open the first PDF in Preview, go to View then Thumbnails to get the sidebar, then drag another PDF's file icon from Finder directly into that sidebar at the position you want it. Add more files the same way, then File and Export as PDF.</p>
+
+    <p>Nothing in the Preview interface suggests this is possible, which is why most people don't know about it. But it works completely offline and it's fast once you know the trick.</p>
+
+    <h2>Two things worth checking before you send</h2>
+
+    <p><strong>Scroll through the merged file.</strong> Confirm the page count adds up. A blank page, a missing section, or a file that merged in the wrong orientation is easy to miss when you're moving quickly.</p>
+
+    <p><strong>Check the file size.</strong> Merging large PDFs just adds their sizes together, and if the combined file is over 10 MB you may hit email limits. Running it through <a href="/compress.html">EditPDF's compressor</a> afterwards usually brings it down significantly without any visible change.</p>
+
+    <div class="cta-box">
+      <h3>Merge your PDFs — free</h3>
+      <p>Upload, reorder, download. Browser-based, no account needed.</p>
+      <a href="/merge.html" class="cta-btn">Try Free PDF Merger &rarr;</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="container--narrow">
+  <div class="ad-slot ad-slot--banner"></div>
+</div>
+
+<section class="related-tools">
+  <p class="related-tools-title">Related tools</p>
+  <div class="related-tools-grid">
+    <a href="/merge.html" class="tool-grid-card">
+      <div class="tool-icon">&#128196;</div>
+      <div class="tool-content"><div class="tool-name">Merge PDF</div><div class="tool-desc">Combine multiple PDFs into one. Drag to reorder before merging.</div></div>
+    </a>
+    <a href="/compress.html" class="tool-grid-card">
+      <div class="tool-icon">&#128292;</div>
+      <div class="tool-content"><div class="tool-name">Compress PDF</div><div class="tool-desc">Reduce PDF file size without losing quality.</div></div>
+    </a>
+    <a href="/split.html" class="tool-grid-card">
+      <div class="tool-icon">&#9986;&#65039;</div>
+      <div class="tool-content"><div class="tool-name">Split PDF</div><div class="tool-desc">Extract pages or split a PDF into separate files.</div></div>
+    </a>
+    <a href="/edit.html" class="tool-grid-card">
+      <div class="tool-icon">&#9998;</div>
+      <div class="tool-content"><div class="tool-name">Edit PDF</div><div class="tool-desc">Add text, highlight, draw and annotate PDFs.</div></div>
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>&copy; 2026 EditPDF.fyi</div>
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/about.html">About</a>
+    <a href="/blog.html">Blog</a>
+  </div>
+</footer>
+
+</body>
+</html>
